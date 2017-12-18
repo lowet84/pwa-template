@@ -41,16 +41,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "~vue-material/dist/theme/engine";
+@import './theme';
 
-@include md-register-theme("default", (
-  primary: md-get-palette-color(brown, 200),  
-  accent: md-get-palette-color(deeppurple, 700)
-));
-
-@import "~vue-material/dist/theme/all";
-
-.md-app {
-  height: 100vh;
-}
+.md-app {  height: 100vh;}
 </style>
