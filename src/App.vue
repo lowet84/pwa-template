@@ -1,13 +1,15 @@
 <template>
   <v-app id="inspire" dark>
-    <v-navigation-drawer fixed v-model="drawerState" app>
+    <!-- <v-navigation-drawer fixed v-model="drawerState" app>
       <drawer />
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
     <v-toolbar color="primary" fixed app>
-      <v-toolbar-side-icon @click.stop="setDrawer(true)"></v-toolbar-side-icon>
-      <v-toolbar-title>Application</v-toolbar-title>
+      <v-spacer />
+      <!-- <v-toolbar-side-icon @click.stop="setDrawer(true)"></v-toolbar-side-icon> -->
+      <v-toolbar-title class="title">Application</v-toolbar-title>
+      <v-spacer />
     </v-toolbar>
-    <v-content>
+    <v-content app>
       <router-view />
     </v-content>
   </v-app>
@@ -38,5 +40,7 @@ export default {
 </script>
 
 <style scoped>
-
+.title{
+  margin-left: 0;
+}
 </style>
