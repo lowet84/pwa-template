@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid fill-height>
-    <v-layout justify-center align-center>
+  <v-container fluid fill-height class="home">
+    <v-layout align-center justify-center>
       <v-tooltip right>
         <v-btn icon large target="_blank" slot="activator">
           <v-icon large>code</v-icon>
@@ -18,7 +18,5 @@ export default {
 </script>
 
 <style>
-.home{
-  height: 200vh;
-}
+
 </style>
