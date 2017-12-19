@@ -1,9 +1,10 @@
 <template>
-  <div>
+  <md-toolbar class="md-primary">
     <md-button class="md-icon-button" @click="setDrawer(true)">
       <md-icon>menu</md-icon>
     </md-button>
-  </div>
+    <h3 class="md-title">Primary</h3>
+  </md-toolbar>
 </template>
 
 <script>

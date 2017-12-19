@@ -1,16 +1,27 @@
 <template>
-  <router-view></router-view>
+  <div class="app">
+    <drawer></drawer>
+    <toolbar></toolbar>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-
+import Drawer from '@/components/Drawer'
+import Toolbar from '@/components/Toolbar'
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    drawer: Drawer,
+    toolbar: Toolbar
+  }
 }
 </script>
 
 <style lang="scss">
-@import './theme';
+@import "./theme";
 
-.md-app {  height: 100vh;}
+.app {
+  height: 100vh;
+}
 </style>
