@@ -1,3 +1,2 @@
-let applicationTitle = ''
 
-export default { applicationTitle }
+export default { }

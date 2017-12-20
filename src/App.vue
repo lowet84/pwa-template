@@ -4,7 +4,7 @@
       <v-spacer />
       <v-toolbar-title class="title">{{currentPage}}</v-toolbar-title>
       <v-spacer />
-      <div>v5</div>
+      <div>v6</div>
     </v-toolbar>
     <v-content app>
       <v-container fluid fill-height class="home">
@@ -12,16 +12,16 @@
           <router-view></router-view>
           <!-- <div class="headline text-xs-center pa-5">Active: sdsf</div> -->
           <v-bottom-nav absolute :value="true" color="primary">
-            <v-btn flat to="/home/recent" value="recent">
-              <span>Recent</span>
+            <v-btn flat to="/home" value="home">
+              <span>Home</span>
               <v-icon>history</v-icon>
             </v-btn>
-            <v-btn flat to="/home/favorites" value="favorites">
-              <span>Favorites</span>
+            <v-btn flat to="/browse" value="browse">
+              <span>Browse</span>
               <v-icon>favorite</v-icon>
             </v-btn>
-            <v-btn flat to="/home/nearby" value="nearby">
-              <span>Nearby</span>
+            <v-btn flat to="/settings" value="settings">
+              <span>Settings</span>
               <v-icon>place</v-icon>
             </v-btn>
           </v-bottom-nav>

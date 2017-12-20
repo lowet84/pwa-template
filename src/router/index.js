@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Recent from '@/components/Recent'
-import Nearby from '@/components/Nearby'
-import Favorites from '@/components/Favorites'
+import Home from '@/components/Home'
+import Browse from '@/components/Browse'
+import Settings from '@/components/Settings'
 
 Vue.use(Router)
 
@@ -10,22 +10,22 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home/recent'
+      redirect: '/home'
     },
     {
-      path: '/home/recent',
-      name: 'Recent',
-      component: Recent
+      path: '/home',
+      name: 'Home',
+      component: Home
     },
     {
-      path: '/home/favorites',
-      name: 'Favorites',
-      component: Favorites
+      path: '/browse',
+      name: 'Browse',
+      component: Browse
     },
     {
-      path: '/home/nearby',
-      name: 'Nearby',
-      component: Nearby
+      path: '/settings',
+      name: 'Settings',
+      component: Settings
     }
   ]
 })

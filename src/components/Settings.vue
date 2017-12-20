@@ -1,10 +1,10 @@
 <template>
-  <div>nearby</div>
+  <div>settings</div>
 </template>
 
 <script>
 export default {
-  name: 'nearby'
+  name: 'settings'
 }
 </script>
 
