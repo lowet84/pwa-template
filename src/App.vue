@@ -43,9 +43,12 @@ export default {
 <style>
 body {
   -webkit-user-select: none;
-     -moz-user-select: -moz-none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  user-select: none;
+}
+html {
+  touch-action: "pan-down";
 }
 </style>
 
