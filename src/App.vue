@@ -40,6 +40,15 @@ export default {
 }
 </script>
 
+<style>
+body {
+  -webkit-user-select: none;
+     -moz-user-select: -moz-none;
+      -ms-user-select: none;
+          user-select: none;
+}
+</style>
+
 <style scoped>
 .title {
   margin-left: 0;

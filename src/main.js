@@ -21,6 +21,13 @@ import('vuetify/dist/vuetify.min.css')
 
 Vue.config.productionTip = false
 
+window.oncontextmenu = function (event) {
+  console.log('preventing long press')
+  event.preventDefault()
+  event.stopPropagation()
+  return false
+}
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
