@@ -3,8 +3,7 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import Browse from '@/components/Browse'
 import Settings from '@/components/Settings'
-import Tabs from '@/components/Tabs'
-import Other from '@/components/Other'
+import Playing from '@/components/Playing'
 
 Vue.use(Router)
 
@@ -17,22 +16,22 @@ export default new Router({
     {
       path: '/home',
       name: 'Home',
-      components: { default: Tabs, tab: Home }
+      component: Home
     },
     {
       path: '/browse',
       name: 'Browse',
-      components: { default: Tabs, tab: Browse }
+      component: Browse
     },
     {
       path: '/settings',
       name: 'Settings',
-      components: { default: Tabs, tab: Settings }
+      component: Settings
     },
     {
       path: '/other',
-      name: 'Other',
-      component: Other
+      name: 'Playing',
+      component: Playing
     }
   ]
 })
