@@ -1,5 +1,5 @@
-let test = function (state) {
-  return state.showDrawer
+let currentPage = function (state) {
+  return state.route.name
 }
 
-export default { test }
+export default { currentPage }

@@ -60,6 +60,7 @@
     "vue-style-loader": "^3.0.3",
     "vue-template-compiler": "^2.5.2",
     "vuex": "^2.3.1",
+    "vuex-router-sync": "^5.0.0",
     "vuetify": "^0.17.5",
     "webpack": "^3.7.1",
     "webpack-bundle-analyzer": "^2.9.0",

@@ -6,6 +6,9 @@ import router from './router'
 import store from './store'
 import Vuetify from 'vuetify'
 import colors from 'vuetify/es5/util/colors'
+import { sync } from 'vuex-router-sync'
+
+sync(store, router)
 
 Vue.use(Vuetify, {
   theme: {
