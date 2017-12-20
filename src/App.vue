@@ -4,7 +4,7 @@
       <v-spacer />
       <v-toolbar-title class="title">{{currentPage}}</v-toolbar-title>
       <v-spacer />
-      <div>v2</div>
+      <div>v3</div>
     </v-toolbar>
     <v-content app>
       <v-container fluid fill-height class="home">
@@ -47,9 +47,7 @@ body {
   -moz-user-select: -moz-none;
   -ms-user-select: none;
   user-select: none;
-}
-html {
-  touch-action: "pan-down";
+  overscroll-behavior-y: contain;
 }
 </style>
 
