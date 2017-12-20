@@ -4,6 +4,7 @@
       <v-spacer />
       <v-toolbar-title class="title">{{currentPage}}</v-toolbar-title>
       <v-spacer />
+      <div>v1</div>
     </v-toolbar>
     <v-content app>
       <v-container fluid fill-height class="home">
