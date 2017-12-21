@@ -5,6 +5,7 @@ import Browse from '@/components/Browse'
 import Settings from '@/components/Settings'
 import Playing from '@/components/Playing'
 import Tabs from '@/components/Tabs'
+import Edit from '@/components/Edit'
 
 Vue.use(Router)
 
@@ -37,6 +38,11 @@ export default new Router({
       path: '/playing/:id',
       name: 'Playing',
       component: Playing
+    },
+    {
+      path: '/edit/:id',
+      name: 'Edit',
+      component: Edit
     }
   ]
 })
