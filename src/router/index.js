@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import Browse from '@/components/Browse'
 import Settings from '@/components/Settings'
 import Playing from '@/components/Playing'
+import Tabs from '@/components/Tabs'
 
 Vue.use(Router)
 
@@ -16,20 +17,20 @@ export default new Router({
     {
       path: '/home',
       name: 'Home',
-      component: Home
+      components: { default: Tabs, inner: Home }
     },
     {
       path: '/browse',
       name: 'Browse',
-      component: Browse
+      components: { default: Tabs, inner: Browse }
     },
     {
       path: '/settings',
       name: 'Settings',
-      component: Settings
+      components: { default: Tabs, inner: Settings }
     },
     {
-      path: '/other',
+      path: '/playing/:id',
       name: 'Playing',
       component: Playing
     }
