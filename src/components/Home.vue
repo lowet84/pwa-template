@@ -11,7 +11,7 @@
                   <div>{{latestBook.author}}</div>
                 </div>
                 <div class="content-bottom">
-                  <v-btn color="accent">play</v-btn>
+                  <v-btn color="accent" @click="play(latestBook.id)">play</v-btn>
                 </div>
               </div>
             </v-flex>
@@ -36,6 +36,11 @@ export default {
   name: 'home',
   computed: {
     ...mapGetters(['latestBook'])
+  },
+  methods: {
+    play (id) {
+      this.$router.push(`/playing/${id}`)
+    }
   }
 }
 </script>
@@ -47,15 +52,15 @@ export default {
 .flex {
   margin-bottom: 1em;
 }
-.content{
+.content {
   display: grid;
   grid-template-areas: "top" "bottom";
-  grid-template-rows: 9em 3.5em
+  grid-template-rows: 9em 3.5em;
 }
 .content-top {
-  grid-area: top
+  grid-area: top;
 }
 .content-bottom {
-  grid-area: bottom
+  grid-area: bottom;
 }
 </style>

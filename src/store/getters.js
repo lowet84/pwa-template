@@ -1,13 +1,13 @@
-let currentPage = function (state) {
+function currentPage (state) {
   return state.route.name
 }
 
-let showNav = function (state) {
+function showNav (state) {
   let withNav = ['Home', 'Browse', 'Settings']
   return withNav.includes(state.route.name)
 }
 
-let allBooks = function (state) {
+function allBooks (state) {
   return state.books
     .sort((a, b) => a.title.localeCompare(b.title))
     .map(d => {
@@ -16,7 +16,7 @@ let allBooks = function (state) {
     })
 }
 
-let latestBook = function (state) {
+function latestBook (state) {
   let ret = state.books
     .map(d => {
       let progress = Math.floor((d.progress / d.length) * 100)
@@ -27,4 +27,10 @@ let latestBook = function (state) {
   return ret
 }
 
-export default { currentPage, allBooks, showNav, latestBook }
+function getBook (state) {
+  return function (id) {
+    return state.books.find(d => d.id === Number(id))
+  }
+}
+
+export default { currentPage, allBooks, showNav, latestBook, getBook }

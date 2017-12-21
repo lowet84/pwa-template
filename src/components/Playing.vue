@@ -6,7 +6,7 @@
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-spacer />
-      <v-toolbar-title class="title">Playing</v-toolbar-title>
+      <v-toolbar-title class="title">{{book.title}}</v-toolbar-title>
       <v-spacer />
       <v-spacer />
     </v-toolbar>
@@ -21,11 +21,25 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'playing',
   methods: {
     back () {
       this.$router.go(-1)
+    }
+  },
+  computed: {
+    ...mapGetters(['getBook']),
+    ...mapState(['route']),
+    book: function () {
+      return this.getBook(this.route.params.id)
+    }
+  },
+  created () {
+    let book = this.book
+    if (book === undefined) {
+      this.$router.push('/')
     }
   }
 }

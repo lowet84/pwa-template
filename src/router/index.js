@@ -15,6 +15,10 @@ export default new Router({
       redirect: '/home'
     },
     {
+      path: '/playing',
+      redirect: '/home'
+    },
+    {
       path: '/home',
       name: 'Home',
       components: { default: Tabs, inner: Home }

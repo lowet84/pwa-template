@@ -3,6 +3,7 @@ function setApplicationTitle (state, value) {
 }
 
 function populateDummyData (state) {
+  console.log('setting up dummy data')
   for (let index = 0; index < 15; index++) {
     let date = randomDate(new Date(2017, 0, 1), new Date())
     let length = Math.floor(Math.random() * 40000)
@@ -18,7 +19,7 @@ function populateDummyData (state) {
     let book = {
       title: Math.random().toString(36).substring(7),
       author: Math.random().toString(36).substring(7),
-      id: Math.random(),
+      id: Math.floor(Math.random() * 10000000),
       length: length,
       progress: progress,
       lastPlayed: date.toString(),
