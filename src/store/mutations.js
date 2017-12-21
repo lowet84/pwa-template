@@ -22,7 +22,7 @@ function populateDummyData (state) {
       length: length,
       progress: progress,
       lastPlayed: date.toString(),
-      cover: '/static/img/cover.jpg'
+      cover: 'https://images-na.ssl-images-amazon.com/images/I/51ea%2B8DhKrL.jpg'
     }
     state.books.push(book)
   }
