@@ -33,11 +33,17 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'app',
   computed: {
     ...mapGetters(['currentPage', 'showNav'])
+  },
+  methods: {
+    ...mapMutations(['populateDummyData'])
+  },
+  created () {
+    this.populateDummyData()
   }
 }
 </script>
@@ -55,7 +61,7 @@ body {
 .title {
   margin-left: 0;
 }
-.home{
+.home {
   padding-left: 0;
   padding-right: 0;
   padding-top: 0;

@@ -1,7 +1,7 @@
 <template>
   <v-layout row>
     <v-flex class="flex">
-      <v-card v-for="latestBook in latestBooks" :key="latestBook.id" class="card">
+      <v-card class="card">
         <v-container fluid grid-list-lg>
           <v-layout row>
             <v-flex xs7>
@@ -34,7 +34,7 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'home',
   computed: {
-    ...mapGetters(['latestBooks'])
+    ...mapGetters(['latestBook'])
   }
 }
 </script>

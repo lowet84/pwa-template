@@ -12,12 +12,11 @@ let allBooks = function (state) {
     .sort((a, b) => a.title.localeCompare(b.title))
 }
 
-let latestBooks = function (state) {
+let latestBook = function (state) {
   let ret = state.books
-    .sort((a, b) => new Date(b.lastPlayed) - new Date(a.lastPlayed))
-    .slice(0, 3)
-  console.log(ret)
+    .filter(d => d.progress !== null)
+    .sort((a, b) => new Date(b.lastPlayed) - new Date(a.lastPlayed))[0]
   return ret
 }
 
-export default { currentPage, allBooks, showNav, latestBooks }
+export default { currentPage, allBooks, showNav, latestBook }
