@@ -13,9 +13,11 @@ let allBooks = function (state) {
 }
 
 let latestBooks = function (state) {
-  return state.books
+  let ret = state.books
     .sort((a, b) => new Date(b.lastPlayed) - new Date(a.lastPlayed))
     .slice(0, 3)
+  console.log(ret)
+  return ret
 }
 
 export default { currentPage, allBooks, showNav, latestBooks }
