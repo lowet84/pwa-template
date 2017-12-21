@@ -6,7 +6,7 @@
       </v-list-tile-avatar>
       <v-list-tile-content>
         <v-list-tile-title v-html="book.title"></v-list-tile-title>
-        <v-list-tile-sub-title v-html="book.author"></v-list-tile-sub-title>
+        <v-list-tile-sub-title v-html="subtitle(book)"></v-list-tile-sub-title>
       </v-list-tile-content>
     </v-list-tile>
   </v-list>
@@ -18,12 +18,17 @@ export default {
   name: 'browse',
   computed: {
     ...mapGetters(['allBooks'])
+  },
+  methods: {
+    subtitle (book) {
+      return `${book.author} (${book.progress}%)`
+    }
   }
 }
 </script>
 
 <style scoped>
-.list{
+.list {
   width: 100%;
 }
 </style>

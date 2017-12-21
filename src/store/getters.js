@@ -10,11 +10,19 @@ let showNav = function (state) {
 let allBooks = function (state) {
   return state.books
     .sort((a, b) => a.title.localeCompare(b.title))
+    .map(d => {
+      let progress = Math.floor((d.progress / d.length) * 100)
+      return { ...d, progress }
+    })
 }
 
 let latestBook = function (state) {
   let ret = state.books
-    .filter(d => d.progress !== null)
+    .map(d => {
+      let progress = Math.floor((d.progress / d.length) * 100)
+      return { ...d, progress }
+    })
+    .filter(d => d.progress > 0 && d.progress < 100)
     .sort((a, b) => new Date(b.lastPlayed) - new Date(a.lastPlayed))[0]
   return ret
 }
