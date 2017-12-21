@@ -3,17 +3,22 @@
     <v-flex class="flex">
       <v-card v-for="latestBook in latestBooks" :key="latestBook.id" class="card">
         <v-container fluid grid-list-lg>
-          <v-layout row wrap>
+          <v-layout row>
             <v-flex xs7>
-              <div>
-                <div class="headline">{{latestBook.title}}</div>
-                <div>{{latestBook.author}}</div>
+              <div class="content">
+                <div class="content-top">
+                  <div class="headline">{{latestBook.title}}</div>
+                  <div>{{latestBook.author}}</div>
+                </div>
+                <div class="content-bottom">
+                  <v-btn color="accent">play</v-btn>
+                </div>
               </div>
             </v-flex>
             <v-flex xs5>
               <v-card-media
                 src="/static/img/cover.jpg"
-                height="200px"
+                height="12.5em"
                 contain>
               </v-card-media>
             </v-flex>
@@ -35,10 +40,21 @@ export default {
 </script>
 
 <style scoped>
-.card{
+.card {
   margin: 1em;
 }
-.flex{
+.flex {
   margin-bottom: 1em;
+}
+.content{
+  display: grid;
+  grid-template-areas: "top" "bottom";
+  grid-template-rows: 9em 3.5em
+}
+.content-top {
+  grid-area: top
+}
+.content-bottom {
+  grid-area: bottom
 }
 </style>
