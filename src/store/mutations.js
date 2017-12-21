@@ -21,7 +21,8 @@ function populateDummyData (state) {
       id: Math.random(),
       length: length,
       progress: progress,
-      lastPlayed: date.toString()
+      lastPlayed: date.toString(),
+      cover: '/static/img/cover.jpg'
     }
     state.books.push(book)
   }

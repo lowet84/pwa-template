@@ -17,7 +17,7 @@
             </v-flex>
             <v-flex xs5>
               <v-card-media
-                src="/static/img/cover.jpg"
+                :src="latestBook.cover"
                 height="12.5em"
                 contain>
               </v-card-media>

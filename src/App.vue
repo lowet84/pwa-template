@@ -5,7 +5,7 @@
       <v-spacer />
       <v-toolbar-title class="title">{{currentPage}}</v-toolbar-title>
       <v-spacer />
-      <div>v6</div>
+      <div>v7</div>
     </v-toolbar>
 
     <v-content app class="content">
