@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire" dark>
+  <v-app id="inspire" dark v-if="book !== undefined">
 
     <v-toolbar color="primary" fixed app>
       <v-btn flat icon @click="back">
@@ -12,8 +12,21 @@
     </v-toolbar>
 
     <v-content app class="content">
-      <v-container fill-height class="home" justify-center>
-        playing
+      <v-container fill-height justify-center class="container">
+        <v-parallax
+          :src="book.cover"
+          height="100%"
+          jumbotron
+          class="parallax">
+        </v-parallax>
+        <v-layout column>
+          <div class="content">
+            <v-progress-linear v-model="book.progressPercent" 
+              class="progress" height="30" color="accent">30</v-progress-linear>
+            <h1 class="white--text">Vuetify.js</h1>
+            <h4 class="white--text">Build your application today!</h4>
+          </div>
+        </v-layout>
       </v-container>
     </v-content>
 
@@ -46,5 +59,22 @@ export default {
 </script>
 
 <style scoped>
-
+.container{
+  padding: 0;
+}
+.parallax{
+  width: 100%;
+  opacity: 0.2;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.progress{
+  margin: 0;
+  opacity: 0.7;
+}
+.content{
+  display: flex;
+  flex-direction: column;
+}
 </style>

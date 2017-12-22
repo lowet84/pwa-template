@@ -11,25 +11,29 @@ function allBooks (state) {
   return state.books
     .sort((a, b) => a.title.localeCompare(b.title))
     .map(d => {
-      let progress = Math.floor((d.progress / d.length) * 100)
-      return { ...d, progress }
+      let progressPercent = Math.floor((d.progress / d.length) * 100)
+      return { ...d, progressPercent }
     })
 }
 
 function latestBook (state) {
   let ret = state.books
     .map(d => {
-      let progress = Math.floor((d.progress / d.length) * 100)
-      return { ...d, progress }
+      let progressPercent = Math.floor((d.progress / d.length) * 100)
+      return { ...d, progressPercent }
     })
-    .filter(d => d.progress > 0 && d.progress < 100)
-    .sort((a, b) => new Date(b.lastPlayed) - new Date(a.lastPlayed))[0]
-  return ret
+    .filter(d => d.progressPercent > 0 && d.progressPercent < 100)
+    .sort((a, b) => new Date(b.lastPlayed) - new Date(a.lastPlayed))
+  console.log(ret.map(d => d.lastPlayed))
+  return ret[0]
 }
 
 function getBook (state) {
   return function (id) {
-    return state.books.find(d => d.id === Number(id))
+    let book = state.books.find(d => d.id === Number(id))
+    if (book === undefined) return book
+    book.progressPercent = Math.floor((book.progress / book.length) * 100)
+    return book
   }
 }
 

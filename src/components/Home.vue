@@ -24,7 +24,7 @@
             </v-flex>
           </v-layout>
         </v-container>
-        <v-progress-linear v-model="latestBook.progress"></v-progress-linear>
+        <v-progress-linear v-model="latestBook.progressPercent"></v-progress-linear>
       </v-card>
     </v-flex>
   </v-layout>
