@@ -6,30 +6,47 @@
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-spacer />
-      <v-toolbar-title class="title">{{book.title}}</v-toolbar-title>
+      <v-toolbar-title class="title">Now playing</v-toolbar-title>
       <v-spacer />
       <v-spacer />
     </v-toolbar>
 
-    <v-content app class="content">
+    <v-content app class="base">
       <v-container fill-height justify-center class="container">
+        <div class="content">
+          <v-progress-linear v-model="book.progressPercent" 
+            class="progress" height="30" color="accent">
+            </v-progress-linear>
+          <div class="text-area">
+            <h1 class="white--text">{{book.title}}</h1>
+            <h4 class="white--text">{{book.author}}</h4>
+          </div>
+          <div class="control">
+            <v-btn flat icon class="button" @click="">
+              <v-icon large>skip_previous</v-icon>
+            </v-btn>
+            <v-btn flat icon class="button" @click="">
+              <v-icon large>fast_rewind</v-icon>
+            </v-btn>
+            <v-btn flat icon class="button" @click="">
+              <v-icon large>fast_forward</v-icon>
+            </v-btn>
+            <v-btn flat icon class="button" @click="">
+              <v-icon large>skip_next</v-icon>
+            </v-btn>
+          </div>
+          <div class="play" @click="">
+            <v-btn flat icon>
+              <v-icon x-large>play_arrow</v-icon>
+            </v-btn>
+          </div>
+        </div>
         <v-parallax
           :src="book.cover"
           height="100%"
           jumbotron
           class="parallax">
         </v-parallax>
-        <v-layout column>
-          <div class="content">
-            <v-progress-linear v-model="book.progressPercent" 
-              class="progress" height="30" color="accent">
-              </v-progress-linear>
-            <div class="text-area">
-              <h1 class="white--text">Vuetify.js</h1>
-              <h4 class="white--text">Build your application today!</h4>
-            </div>
-          </div>
-        </v-layout>
       </v-container>
     </v-content>
 
@@ -64,6 +81,7 @@ export default {
 <style scoped>
 .container {
   padding: 0;
+  height: 100%
 }
 .parallax {
   width: 100%;
@@ -80,9 +98,32 @@ export default {
 .content {
   display: grid;
   flex-direction: column;
-  grid-template-areas: "progress" "text";
+  grid-template-areas: "progress" "." "text" "." "play" "." "control";
+  grid-template-columns: 100%;
+  grid-template-rows: auto 1fr auto 1fr auto 1fr auto;
+  height: 100%;
 }
 .text-area{
   grid-area: text;
+  text-align: center;
+}
+.control{
+  grid-area: control;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.button{
+  margin: 0.5em;
+}
+.play{
+  grid-area: play;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  transform: scale(2, 2);
+}
+.base{
+  overflow: hidden;
 }
 </style>
