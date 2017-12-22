@@ -22,7 +22,8 @@
         <v-layout column>
           <div class="content">
             <v-progress-linear v-model="book.progressPercent" 
-              class="progress" height="30" color="accent">30</v-progress-linear>
+              class="progress" height="30" color="accent">
+              </v-progress-linear>
             <h1 class="white--text">Vuetify.js</h1>
             <h4 class="white--text">Build your application today!</h4>
           </div>
@@ -59,21 +60,21 @@ export default {
 </script>
 
 <style scoped>
-.container{
+.container {
   padding: 0;
 }
-.parallax{
+.parallax {
   width: 100%;
   opacity: 0.2;
   position: absolute;
   top: 0;
   left: 0;
 }
-.progress{
+.progress {
   margin: 0;
   opacity: 0.7;
 }
-.content{
+.content {
   display: flex;
   flex-direction: column;
 }
