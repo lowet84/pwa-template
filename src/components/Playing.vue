@@ -24,8 +24,10 @@
             <v-progress-linear v-model="book.progressPercent" 
               class="progress" height="30" color="accent">
               </v-progress-linear>
-            <h1 class="white--text">Vuetify.js</h1>
-            <h4 class="white--text">Build your application today!</h4>
+            <div class="text-area">
+              <h1 class="white--text">Vuetify.js</h1>
+              <h4 class="white--text">Build your application today!</h4>
+            </div>
           </div>
         </v-layout>
       </v-container>
@@ -73,9 +75,14 @@ export default {
 .progress {
   margin: 0;
   opacity: 0.7;
+  grid-area: progress;
 }
 .content {
-  display: flex;
+  display: grid;
   flex-direction: column;
+  grid-template-areas: "progress" "text";
+}
+.text-area{
+  grid-area: text;
 }
 </style>

@@ -24,7 +24,6 @@ function latestBook (state) {
     })
     .filter(d => d.progressPercent > 0 && d.progressPercent < 100)
     .sort((a, b) => new Date(b.lastPlayed) - new Date(a.lastPlayed))
-  console.log(ret.map(d => d.lastPlayed))
   return ret[0]
 }
 
