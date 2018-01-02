@@ -8,7 +8,7 @@ function populateDummyData (state) {
     let progress
     switch (progressState) {
       case 0: progress = 0; break
-      case 1: progress = length * Math.random(); break
+      case 1: progress = Math.floor(length * Math.random()); break
       case 2: progress = length; break
     }
 

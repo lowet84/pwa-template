@@ -14,28 +14,32 @@
     <v-content app class="base">
       <v-container fill-height justify-center class="container">
         <div class="content">
-          <v-progress-linear v-model="book.progressPercent" 
-            class="progress" height="30" color="accent">
+          <div class="progress">
+            <div class="progress-content-left">{{progress}}</div>
+            <div class="progress-content-right">{{left}}</div>
+            <v-progress-linear v-model="book.progressPercent" 
+            class="progress-bar" height="30" color="accent">
             </v-progress-linear>
+          </div>
           <div class="text-area">
             <h1 class="white--text">{{book.title}}</h1>
             <h4 class="white--text">{{book.author}}</h4>
           </div>
           <div class="control">
-            <v-btn flat icon class="button" @click="">
+            <v-btn flat icon class="button" @click="log('prev')">
               <v-icon large>skip_previous</v-icon>
             </v-btn>
-            <v-btn flat icon class="button" @click="">
+            <v-btn flat icon class="button" @click="log('rw')">
               <v-icon large>fast_rewind</v-icon>
             </v-btn>
-            <v-btn flat icon class="button" @click="">
+            <v-btn flat icon class="button" @click="log('ff')">
               <v-icon large>fast_forward</v-icon>
             </v-btn>
-            <v-btn flat icon class="button" @click="">
+            <v-btn flat icon class="button" @click="log('next')">
               <v-icon large>skip_next</v-icon>
             </v-btn>
           </div>
-          <div class="play" @click="">
+          <div class="play" @click="log('play')">
             <v-btn flat icon>
               <v-icon x-large>play_arrow</v-icon>
             </v-btn>
@@ -60,6 +64,9 @@ export default {
   methods: {
     back () {
       this.$router.go(-1)
+    },
+    log (text) {
+      console.log(text)
     }
   },
   computed: {
@@ -67,6 +74,12 @@ export default {
     ...mapState(['route']),
     book: function () {
       return this.getBook(this.route.params.id)
+    },
+    progress () {
+      return this.book.progress
+    },
+    left () {
+      return this.book.length - this.book.progress
     }
   },
   created () {
@@ -81,7 +94,7 @@ export default {
 <style scoped>
 .container {
   padding: 0;
-  height: 100%
+  height: 100%;
 }
 .parallax {
   width: 100%;
@@ -89,11 +102,16 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 0;
 }
 .progress {
-  margin: 0;
-  opacity: 0.7;
   grid-area: progress;
+}
+.progress-bar {
+  opacity: 0.7;
+  margin: 0;
+  z-index: 0;
+  position: absolute;
 }
 .content {
   display: grid;
@@ -102,28 +120,40 @@ export default {
   grid-template-columns: 100%;
   grid-template-rows: auto 1fr auto 1fr auto 1fr auto;
   height: 100%;
+  z-index: 1;
 }
-.text-area{
+.text-area {
   grid-area: text;
   text-align: center;
 }
-.control{
+.control {
   grid-area: control;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.button{
+.button {
   margin: 0.5em;
 }
-.play{
+.play {
   grid-area: play;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   transform: scale(2, 2);
 }
-.base{
+.base {
   overflow: hidden;
+}
+.progress-content-left {
+  z-index: 1;
+  position: absolute;
+  margin: 4px;
+}
+.progress-content-right {
+  z-index: 1;
+  position: absolute;
+  margin: 4px;
+  right: 0px;
 }
 </style>
