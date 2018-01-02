@@ -16,3 +16,4 @@ pipeline:
     script:
       - cd homeserver2/wip/pwa-template
       - upgrade-compose
+
