@@ -1,7 +1,7 @@
 import howler from 'howler'
 
 let tick = null
-let latest = 0
+let latest = -1
 let tries = 0
 
 let play = function (store, value) {
@@ -24,6 +24,7 @@ let stop = function (store) {
   store.state.sound.howl = null
   store.state.sound.source = null
   clearInterval(tick)
+  latest = -1
 }
 
 let update = function (store) {
