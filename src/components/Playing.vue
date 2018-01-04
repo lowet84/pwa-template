@@ -15,8 +15,8 @@
       <v-container fill-height justify-center class="container">
         <div class="content">
           <div class="progress">
-            <div class="progress-content-left">{{progress}}</div>
-            <div class="progress-content-right">{{left}}</div>
+            <div class="progress-content-left">{{progressSec}}</div>
+            <div class="progress-content-right">{{leftSec}}</div>
             <v-progress-linear v-model="book.progressPercent" 
             class="progress-bar" height="30" color="accent">
             </v-progress-linear>
@@ -39,9 +39,12 @@
               <v-icon large>skip_next</v-icon>
             </v-btn>
           </div>
-          <div class="play" @click="log('play')">
-            <v-btn flat icon>
+          <div class="play" @click="playPause">
+            <v-btn flat icon v-if="sound.source===null">
               <v-icon x-large>play_arrow</v-icon>
+            </v-btn>
+            <v-btn flat icon v-if="sound.source!==null">
+              <v-icon x-large>pause</v-icon>
             </v-btn>
           </div>
         </div>
@@ -59,6 +62,7 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
+import howler from 'howler'
 export default {
   name: 'playing',
   methods: {
@@ -67,19 +71,49 @@ export default {
     },
     log (text) {
       console.log(text)
+    },
+    playPause () {
+      if (this.sound.source !== null) {
+        this.stop()
+      } else {
+        this.play()
+      }
+    },
+    stop () {
+      let seek = this.sound.howl.seek()
+      this.getBook(this.sound.source).progress = seek
+      this.sound.howl.stop()
+      this.sound.howl = null
+      this.sound.source = null
+    },
+    play () {
+      this.sound.howl = new howler.Howl({
+        src: ['/static/audio/test.mp3'],
+        html5: true
+      })
+      this.sound.source = this.book.id
+
+      this.sound.howl.seek(this.progress)
+      this.sound.howl.play()
     }
   },
   computed: {
     ...mapGetters(['getBook']),
-    ...mapState(['route']),
+    ...mapState(['route', 'sound']),
     book: function () {
       return this.getBook(this.route.params.id)
     },
     progress () {
       return this.book.progress
     },
+    progressSec () {
+      return Math.floor(this.progress)
+    },
     left () {
       return this.book.length - this.book.progress
+    },
+    leftSec () {
+      return Math.floor(this.left)
     }
   },
   created () {
