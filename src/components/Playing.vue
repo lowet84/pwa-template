@@ -39,7 +39,7 @@
               <v-icon large>skip_next</v-icon>
             </v-btn>
           </div>
-          <div class="play" @click="playPause">
+          <div class="play" @click="playPause(book.id)">
             <v-btn flat icon v-if="sound.source===null">
               <v-icon x-large>play_arrow</v-icon>
             </v-btn>
@@ -61,8 +61,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
-import howler from 'howler'
+import { mapGetters, mapState, mapActions } from 'vuex'
 export default {
   name: 'playing',
   methods: {
@@ -72,30 +71,7 @@ export default {
     log (text) {
       console.log(text)
     },
-    playPause () {
-      if (this.sound.source !== null) {
-        this.stop()
-      } else {
-        this.play()
-      }
-    },
-    stop () {
-      let seek = this.sound.howl.seek()
-      this.getBook(this.sound.source).progress = seek
-      this.sound.howl.stop()
-      this.sound.howl = null
-      this.sound.source = null
-    },
-    play () {
-      this.sound.howl = new howler.Howl({
-        src: ['/static/audio/test.mp3'],
-        html5: true
-      })
-      this.sound.source = this.book.id
-
-      this.sound.howl.seek(this.progress)
-      this.sound.howl.play()
-    }
+    ...mapActions(['playPause'])
   },
   computed: {
     ...mapGetters(['getBook']),
