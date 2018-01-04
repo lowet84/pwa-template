@@ -1,13 +1,12 @@
 import howler from 'howler'
 
 let tick = null
+let latest = 0
 
 let play = function (store, value) {
   store.state.sound.howl = new howler.Howl({
     src: ['/static/audio/test.mp3'],
-    html5: true,
-    onpause: () => { popup() },
-    onstop: () => { popup() }
+    html5: true
   })
 
   store.state.sound.source = value
@@ -28,11 +27,11 @@ let stop = function (store, value) {
 
 let update = function (store) {
   let seek = store.state.sound.howl.seek()
+  if (seek === latest) {
+    alert('stopped')
+  }
+  latest = seek
   store.getters.getBook(store.state.sound.source).progress = seek
-}
-
-let popup = function () {
-  alert('pause')
 }
 
 let playPause = function (store, value) {
