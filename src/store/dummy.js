@@ -14,8 +14,8 @@ function populateDummyData () {
     }
 
     let book = {
-      title: Math.random().toString(36).substring(7),
-      author: Math.random().toString(36).substring(7),
+      title: getString(),
+      author: getString(),
       id: Math.floor(Math.random() * 10000000),
       length: length,
       progress: progress,
@@ -28,8 +28,21 @@ function populateDummyData () {
   return books
 }
 
+function getMetadata () {
+  return {
+    title: getString(),
+    author: getString(),
+    filename: `${getString()}${getString()}${getString()}`,
+    path: `${getString()}${getString()}${getString()}`
+  }
+}
+
+function getString () {
+  return Math.random().toString(36).substring(7)
+}
+
 function randomDate (start, end) {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
 }
 
-export default { populateDummyData }
+export default { populateDummyData, getMetadata }
