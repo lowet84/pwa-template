@@ -6,7 +6,7 @@ import Actions from './store/actions'
 import Getters from './store/getters'
 import State from './store/state'
 
-import Dummy from './store/dummy'
+import Server from './store/server'
 
 Vue.use(Vuex)
 
@@ -19,12 +19,12 @@ const mutations = {
   setDrawer (state, value) {
     state.showDrawer = value
   },
-  ...Mutations,
-  ...Dummy
+  ...Mutations
 }
 
 const actions = {
-  ...Actions
+  ...Actions,
+  ...Server
 }
 
 // getters are functions

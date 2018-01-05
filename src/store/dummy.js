@@ -1,4 +1,5 @@
-function populateDummyData (state) {
+function populateDummyData () {
+  let books = []
   console.log('setting up dummy data')
   for (let index = 0; index < 15; index++) {
     let date = randomDate(new Date(2017, 0, 1), new Date())
@@ -18,11 +19,13 @@ function populateDummyData (state) {
       id: Math.floor(Math.random() * 10000000),
       length: length,
       progress: progress,
-      lastPlayed: date.toString(),
+      lastPlayed: date,
       cover: 'https://images-na.ssl-images-amazon.com/images/I/51ea%2B8DhKrL.jpg'
     }
-    state.books.push(book)
+    books.push(book)
   }
+
+  return books
 }
 
 function randomDate (start, end) {

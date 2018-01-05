@@ -9,7 +9,16 @@ function showNav (state) {
 
 function allBooks (state) {
   return state.books
-    .sort((a, b) => a.title.localeCompare(b.title))
+    .sort((a, b) => {
+      switch (state.sortby) {
+        case 0: return a.title.localeCompare(b.title)
+        case 1:
+          let authorCompare = a.author.localeCompare(b.author)
+          return authorCompare !== 0
+            ? authorCompare
+            : a.title.localeCompare(b.title)
+      }
+    })
     .map(d => {
       let progressPercent = Math.floor((d.progress / d.length) * 100)
       return { ...d, progressPercent }

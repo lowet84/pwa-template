@@ -1,8 +1,6 @@
 import howler from 'howler'
 
 let tick = null
-let latest = -1
-let tries = 0
 
 let play = function (store, value) {
   store.state.sound.howl = new howler.Howl({
@@ -24,20 +22,13 @@ let stop = function (store) {
   store.state.sound.howl = null
   store.state.sound.source = null
   clearInterval(tick)
-  latest = -1
 }
 
 let update = function (store) {
   let seek = store.state.sound.howl.seek()
-  if (latest === seek) {
-    if (tries++ === 5) {
-      stop(store)
-      alert('stopped')
-    }
-    return
-  }
-  latest = seek
-  store.getters.getBook(store.state.sound.source).progress = seek
+  let book = store.getters.getBook(store.state.sound.source)
+  book.progress = seek
+  book.lastPlayed = new Date()
 }
 
 let playPause = function (store, value) {

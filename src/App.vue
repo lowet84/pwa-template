@@ -1,18 +1,19 @@
 <template>
   <router-view>
     <router-view name="inner"></router-view>
+    <router-view name="button" slot="button"></router-view>
   </router-view>
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
   name: 'app',
   created () {
-    this.populateDummyData()
+    this.updateFromServer()
   },
   methods: {
-    ...mapMutations(['populateDummyData'])
+    ...mapActions(['updateFromServer'])
   }
 }
 </script>

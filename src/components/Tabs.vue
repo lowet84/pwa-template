@@ -5,7 +5,7 @@
       <v-spacer />
       <v-toolbar-title class="title">{{currentPage}}</v-toolbar-title>
       <v-spacer />
-      <div>v8</div>
+      <slot name="button"></slot>
     </v-toolbar>
 
     <v-content app class="content">

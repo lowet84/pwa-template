@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import Browse from '@/components/Browse'
+import BrowseButton from '@/components/BrowseButton'
 import Settings from '@/components/Settings'
 import Playing from '@/components/Playing'
 import Tabs from '@/components/Tabs'
@@ -27,7 +28,7 @@ export default new Router({
     {
       path: '/browse',
       name: 'Browse',
-      components: { default: Tabs, inner: Browse }
+      components: { default: Tabs, inner: Browse, button: BrowseButton }
     },
     {
       path: '/settings',
