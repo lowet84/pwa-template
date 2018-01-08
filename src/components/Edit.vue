@@ -49,7 +49,7 @@ export default {
     ...mapActions(['getMetadataFromServer', 'saveBook']),
     save () {
       this.saveBook({ id: this.book.id, newTitle: this.title, newAuthor: this.author })
-      this.$router.push('/browse')
+      this.$router.go(-1)
     }
   },
   computed: {
