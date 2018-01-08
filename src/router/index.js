@@ -7,6 +7,7 @@ import Settings from '@/components/Settings'
 import Playing from '@/components/Playing'
 import Tabs from '@/components/Tabs'
 import Edit from '@/components/Edit'
+import CoverSearch from '@/components/CoverSearch'
 
 Vue.use(Router)
 
@@ -44,6 +45,11 @@ export default new Router({
       path: '/edit/:id',
       name: 'Edit',
       component: Edit
+    },
+    {
+      path: '/coversearch/:id',
+      name: 'CoverSearch',
+      component: CoverSearch
     }
   ]
 })

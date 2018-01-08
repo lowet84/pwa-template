@@ -45,4 +45,10 @@ function getBook (state) {
   }
 }
 
-export default { currentPage, allBooks, showNav, latestBook, getBook }
+export default {
+  currentPage,
+  allBooks,
+  showNav,
+  latestBook,
+  getBook
+}

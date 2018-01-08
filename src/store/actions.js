@@ -54,13 +54,4 @@ let saveProgress = function (store, id, force) {
   store.dispatch('saveProgressToServer', book)
 }
 
-let saveBook = function (store, value) {
-  let book = store.getters.getBook(value.id)
-  book.author = value.newAuthor
-  book.title = value.newTitle
-
-  store.dispatch('saveBookToServer', book)
-  store.dispatch('updateFromServer')
-}
-
-export default { play, stop, playPause, saveBook }
+export default { play, stop, playPause }

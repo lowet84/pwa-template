@@ -46,4 +46,29 @@ function randomDate (start, end) {
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
 }
 
-export default { populateDummyData, getMetadata }
+function getSearchResults () {
+  return [
+    'https://images-na.ssl-images-amazon.com/images/I/51AEI3isFiL.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/51JVp8YV3ZL.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/51Yt1NrsfbL.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/51VNlzbfpXL.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/51zbaGLMMfL.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/51PHThzD-2L.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/51nQKQZWR-L.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/416ZrnNLj6L.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/61WFjEDBktL.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/611uatTt36L.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/61aUY28XbmL.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/41Mq7Ss7lPL.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/31I4V%2BLaeJL.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/51ea%2B8DhKrL.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/51xzy3xHgNL.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/51OOD3HzgzL.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/51kgOTJWNXL.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/51lCGlVV7HL.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/41xpRvU1IhL.jpg',
+    'https://images-na.ssl-images-amazon.com/images/I/510Cy8v8H3L.jpg'
+  ]
+}
+
+export default { populateDummyData, getMetadata, getSearchResults }

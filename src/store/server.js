@@ -1,6 +1,7 @@
 import dummy from './dummy'
 
-let updateFromServer = function (store) {
+function updateFromServer (store) {
+  console.log('Updating books list from server')
   let books = localStorage.getItem('books')
   if (books === null) {
     books = dummy.populateDummyData()
@@ -13,9 +14,10 @@ let updateFromServer = function (store) {
   store.state.books.push(...books)
 }
 
-let getMetadataFromServer = function (store, id) {
+function getMetadataFromServer (store, id) {
   let book = store.getters.getBook(id)
   if (book.metadata !== undefined) return
+  console.log('Getting metadata from server')
   let metadata = localStorage.getItem(`meta_${id}`)
   if (metadata === null) {
     metadata = dummy.getMetadata()
@@ -26,17 +28,25 @@ let getMetadataFromServer = function (store, id) {
   book.metadata = metadata
 }
 
-let saveBookToServer = function (store, book) {
+function saveBookToServer (store, book) {
+  console.log('Saving book to server')
   localStorage.setItem('books', JSON.stringify(store.state.books))
 }
 
-let saveProgressToServer = function (store, book) {
+function saveProgressToServer (store, book) {
+  console.log('Saving progress to server')
   localStorage.setItem('books', JSON.stringify(store.state.books))
+}
+
+function searchCoversFromServer (store, searchString) {
+  console.log('Searching for covers from server')
+  return dummy.getSearchResults()
 }
 
 export default {
   updateFromServer,
   getMetadataFromServer,
   saveBookToServer,
-  saveProgressToServer
+  saveProgressToServer,
+  searchCoversFromServer
 }

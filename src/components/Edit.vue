@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire" dark>
+  <v-app dark>
 
     <v-toolbar color="primary" fixed app>
       <v-btn flat icon @click="back">
@@ -13,21 +13,25 @@
 
     <v-content app class="content">
       <v-container justify-center>
-        <v-list three-line>
-          <v-list-tile avatar>
-            <v-list-tile-avatar>
-              <v-icon v-if="book.metadata!==undefined">info_outline</v-icon>
-              <v-progress-circular v-else indeterminate color="primary"></v-progress-circular>
-            </v-list-tile-avatar>
-            <v-list-tile-content v-if="book.metadata!==undefined">
-              <v-list-tile-title v-html="meta1"></v-list-tile-title>
-              <v-list-tile-sub-title v-html="meta2"></v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
+        <v-card>
+          <v-card-media
+            height="200px"
+            :src="book.cover"
+          >
+          </v-card-media>
+          <v-card-title>
+            <div>
+              <span class="grey--text">Metadata from server</span><br>
+              <span>{{meta1}}</span><br/>
+              <span>{{meta2}}</span>
+            </div>
+          </v-card-title>
+          <v-card-actions>
+            <v-btn flat color="accent" @click="searchCover">Search for cover</v-btn>
+          </v-card-actions>
+        </v-card>
         <v-text-field label="Title" v-model="title"></v-text-field>
         <v-text-field label="Author" v-model="author"></v-text-field>
-        <v-btn color="accent" @click="save">Save</v-btn>
       </v-container>
     </v-content>
 
@@ -40,16 +44,22 @@ export default {
   name: 'edit',
   data: () => ({
     author: '',
-    title: ''
+    title: '',
+    timer: null
   }),
   methods: {
     back () {
       this.$router.go(-1)
     },
-    ...mapActions(['getMetadataFromServer', 'saveBook']),
-    save () {
-      this.saveBook({ id: this.book.id, newTitle: this.title, newAuthor: this.author })
-      this.$router.go(-1)
+    ...mapActions(['getMetadataFromServer', 'saveBookToServer']),
+    searchCover () {
+      this.$router.push(`/coversearch/${this.book.id}`)
+    },
+    startTimer () {
+      if (this.timer !== null) {
+        clearTimeout(this.timer)
+      }
+      this.timer = setTimeout(() => this.saveBookToServer(this.book), 2000)
     }
   },
   computed: {
@@ -60,6 +70,20 @@ export default {
     },
     meta1 () { return `${this.book.metadata.author}/${this.book.metadata.title}` },
     meta2 () { return `${this.book.metadata.path}/${this.book.metadata.filename}` }
+  },
+  watch: {
+    author (newval) {
+      if (newval !== this.book.author) {
+        this.startTimer()
+      }
+      this.book.author = newval
+    },
+    title (newval) {
+      if (newval !== this.book.title) {
+        this.startTimer()
+      }
+      this.book.title = newval
+    }
   },
   created () {
     let book = this.book
