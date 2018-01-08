@@ -3,7 +3,7 @@
     <div v-for="(book, index)  in allBooks" avatar :key="book.id">
       <v-list-tile>
         <v-list-tile-avatar>
-          <v-icon>book</v-icon>
+          <img :src="book.cover" alt="">
         </v-list-tile-avatar>
         <v-list-tile-content @click="play(book.id)">
           <v-list-tile-title v-html="book.title"></v-list-tile-title>
