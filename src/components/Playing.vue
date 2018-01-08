@@ -97,7 +97,6 @@ export default {
     if (book === undefined) {
       this.$router.push('/')
     }
-    console.log(navigator)
   }
 }
 </script>

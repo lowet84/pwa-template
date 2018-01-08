@@ -20,6 +20,7 @@ function populateDummyData () {
       length: length,
       progress: progress,
       lastPlayed: date,
+      source: '/static/audio/test.mp3',
       cover: 'https://images-na.ssl-images-amazon.com/images/I/51ea%2B8DhKrL.jpg'
     }
     books.push(book)

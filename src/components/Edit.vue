@@ -46,9 +46,10 @@ export default {
     back () {
       this.$router.go(-1)
     },
-    ...mapActions(['getMetadata']),
+    ...mapActions(['getMetadataFromServer', 'saveBook']),
     save () {
-      console.log('saving')
+      this.saveBook({ id: this.book.id, newTitle: this.title, newAuthor: this.author })
+      this.$router.push('/browse')
     }
   },
   computed: {
@@ -65,7 +66,7 @@ export default {
     if (book === undefined) {
       this.$router.push('/')
     }
-    this.getMetadata(this.book.id)
+    this.getMetadataFromServer(this.book.id)
     this.author = this.book.author
     this.title = this.book.title
   }

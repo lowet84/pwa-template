@@ -28,7 +28,7 @@ function allBooks (state) {
 function latestBook (state) {
   let ret = state.books
     .map(d => {
-      let progressPercent = Math.floor((d.progress / d.length) * 100)
+      let progressPercent = (d.progress / d.length) * 100
       return { ...d, progressPercent }
     })
     .filter(d => d.progressPercent > 0 && d.progressPercent < 100)
