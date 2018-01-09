@@ -7,13 +7,20 @@
 
 <script>
 import { mapActions } from 'vuex'
+import auth from './auth'
 export default {
   name: 'app',
   created () {
-    this.updateFromServer()
+    this.init()
   },
   methods: {
-    ...mapActions(['updateFromServer'])
+    ...mapActions(['updateFromServer']),
+    async init () {
+      if (!auth.loggedIn()) {
+        this.$router.push('/login')
+      }
+      this.updateFromServer()
+    }
   }
 }
 </script>

@@ -8,6 +8,7 @@ import Playing from '@/components/Playing'
 import Tabs from '@/components/Tabs'
 import Edit from '@/components/Edit'
 import CoverSearch from '@/components/CoverSearch'
+import Login from '@/components/Login'
 
 Vue.use(Router)
 
@@ -50,6 +51,11 @@ export default new Router({
       path: '/coversearch/:id',
       name: 'CoverSearch',
       component: CoverSearch
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     }
   ]
 })
