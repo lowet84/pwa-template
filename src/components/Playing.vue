@@ -26,16 +26,16 @@
             <h4 class="white--text">{{book.author}}</h4>
           </div>
           <div class="control">
-            <v-btn flat icon class="button" @click="log('prev')">
+            <v-btn flat icon class="button" @click="jumpClick(-60)">
               <v-icon large>skip_previous</v-icon>
             </v-btn>
-            <v-btn flat icon class="button" @click="log('rw')">
+            <v-btn flat icon class="button" @click="jumpClick(-10)">
               <v-icon large>fast_rewind</v-icon>
             </v-btn>
-            <v-btn flat icon class="button" @click="log('ff')">
+            <v-btn flat icon class="button" @click="jumpClick(10)">
               <v-icon large>fast_forward</v-icon>
             </v-btn>
-            <v-btn flat icon class="button" @click="log('next')">
+            <v-btn flat icon class="button" @click="jumpClick(60)">
               <v-icon large>skip_next</v-icon>
             </v-btn>
           </div>
@@ -71,7 +71,10 @@ export default {
     log (text) {
       console.log(text)
     },
-    ...mapActions(['playPause'])
+    ...mapActions(['playPause', 'jump']),
+    jumpClick (value) {
+      this.jump({ book: this.book, position: value })
+    }
   },
   computed: {
     ...mapGetters(['getBook']),

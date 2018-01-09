@@ -2,6 +2,7 @@ import howler from 'howler'
 
 let tick = null
 let lastProgressSave = new Date()
+let timer = null
 
 let play = function (store, value) {
   let book = store.getters.getBook(value)
@@ -43,6 +44,23 @@ let playPause = function (store, value) {
   }
 }
 
+function startTimer (store, id) {
+  if (timer !== null) {
+    clearTimeout(timer)
+  }
+  timer = setTimeout(() => saveProgress(store, id, true), 2000)
+}
+
+function jump (store, value) {
+  if (store.state.sound.source !== null) {
+    let pos = store.state.sound.howl.seek()
+    store.state.sound.howl.seek(pos + value.position)
+  } else {
+    value.book.progress += value.position
+    startTimer(store, value.book.id)
+  }
+}
+
 let saveProgress = function (store, id, force) {
   if (!force) {
     let change = (new Date().getTime() - lastProgressSave.getTime()) / 1000
@@ -54,4 +72,4 @@ let saveProgress = function (store, id, force) {
   store.dispatch('saveProgressToServer', book)
 }
 
-export default { play, stop, playPause }
+export default { play, stop, playPause, jump }
