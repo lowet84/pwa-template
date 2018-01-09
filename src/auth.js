@@ -11,4 +11,8 @@ function tryLogin (username, password) {
   return false
 }
 
-export default { loggedIn, tryLogin }
+function logout () {
+  localStorage.removeItem('loginToken')
+}
+
+export default { loggedIn, tryLogin, logout }

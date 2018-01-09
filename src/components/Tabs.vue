@@ -9,7 +9,7 @@
     </v-toolbar>
 
     <v-content app class="content">
-      <v-container fill-height class="home" justify-center>
+      <v-container class="home" justify-center>
         <slot></slot>
       </v-container>
     </v-content>

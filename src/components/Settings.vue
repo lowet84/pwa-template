@@ -1,10 +1,42 @@
 <template>
-  <div>settings</div>
+  <div>
+    <v-list three-line subheader>
+      <v-list-tile @click="dialog=true">
+        <v-list-tile-content>
+          <v-list-tile-title>Log out</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+    </v-list>
+
+    <v-dialog v-model="dialog" max-width="290">
+      <v-card>
+        <v-card-title class="headline">Log out</v-card-title>
+        <v-card-text>
+          Are you sure that you want to log out?
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn flat="flat" @click.native="dialog = false">No</v-btn>
+          <v-btn color="primary" flat="flat" @click.native="logoutClick">Yes</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
 </template>
 
 <script>
+import auth from '../auth'
 export default {
-  name: 'settings'
+  name: 'settings',
+  methods: {
+    logoutClick () {
+      auth.logout()
+      this.$router.push('/login')
+    }
+  },
+  data: () => ({
+    dialog: false
+  })
 }
 </script>
 

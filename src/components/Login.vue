@@ -12,13 +12,15 @@
         <div class="logo">
           <img src="/static/img/icons/android-chrome-512x512.png"/>
         </div>
-        <v-text-field label="Username" v-model="username"></v-text-field>
-        <v-text-field
-              label="Password"
-              type="password"
-              v-model="password"
-            ></v-text-field>
-        <v-btn block color="accent" @click="login">Log in</v-btn>
+        <v-form>
+          <v-text-field label="Username" v-model="username"></v-text-field>
+          <v-text-field
+                label="Password"
+                type="password"
+                v-model="password"
+              ></v-text-field>
+          <v-btn type="submit" block color="accent" @click="login">Log in</v-btn>
+        </v-form>
       </v-container>
     </v-content>
 
