@@ -45,10 +45,20 @@ function getBook (state) {
   }
 }
 
+function loggedIn (state) {
+  return state.user !== null
+}
+
+function isAdmin (state) {
+  return state.user.admin
+}
+
 export default {
   currentPage,
   allBooks,
   showNav,
   latestBook,
-  getBook
+  getBook,
+  loggedIn,
+  isAdmin
 }

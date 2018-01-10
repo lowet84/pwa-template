@@ -6,6 +6,12 @@
           <v-list-tile-title>Log out</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
+      <v-list-tile v-if="isAdmin">
+        <v-list-tile-content>
+          <v-list-tile-title>Users</v-list-tile-title>
+          <v-list-tile-sub-title>Manage user accounts</v-list-tile-sub-title>
+        </v-list-tile-content>
+      </v-list-tile>
     </v-list>
 
     <v-dialog v-model="dialog" max-width="290">
@@ -25,14 +31,18 @@
 </template>
 
 <script>
-import auth from '../auth'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'settings',
   methods: {
+    ...mapActions(['logout']),
     logoutClick () {
-      auth.logout()
+      this.logout()
       this.$router.push('/login')
     }
+  },
+  computed: {
+    ...mapGetters(['isAdmin'])
   },
   data: () => ({
     dialog: false

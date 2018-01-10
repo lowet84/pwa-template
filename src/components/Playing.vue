@@ -68,9 +68,6 @@ export default {
     back () {
       this.$router.go(-1)
     },
-    log (text) {
-      console.log(text)
-    },
     ...mapActions(['playPause', 'jump']),
     jumpClick (value) {
       this.jump({ book: this.book, position: value })

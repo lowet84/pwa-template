@@ -6,20 +6,30 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import auth from './auth'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'app',
   created () {
     this.init()
   },
+  computed: {
+    ...mapGetters(['loggedIn'])
+  },
   methods: {
-    ...mapActions(['updateFromServer']),
+    ...mapActions(['updateFromServer', 'loadUser']),
     async init () {
-      if (!auth.loggedIn()) {
+      this.loadUser()
+      if (!this.loggedIn) {
         this.$router.push('/login')
       }
       this.updateFromServer()
+    }
+  },
+  watch: {
+    $route (newval) {
+      if (!this.loggedIn) {
+        this.$router.push('/login')
+      }
     }
   }
 }

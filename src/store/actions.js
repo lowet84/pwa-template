@@ -72,4 +72,24 @@ let saveProgress = function (store, id, force) {
   store.dispatch('saveProgressToServer', book)
 }
 
-export default { play, stop, playPause, jump }
+function logout (store) {
+  store.state.user = null
+  localStorage.removeItem('user')
+}
+
+function loadUser (store) {
+  let json = localStorage.getItem('user')
+  if (json !== null) {
+    store.state.user = JSON.parse(json)
+  }
+}
+
+async function tryLogin (store, login) {
+  let user = await store.dispatch('loginToServer', login)
+  if (user === null) return false
+  localStorage.setItem('user', JSON.stringify(user))
+  store.state.user = user
+  return true
+}
+
+export default { play, stop, playPause, jump, logout, tryLogin, loadUser }

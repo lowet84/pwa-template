@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import auth from '../auth'
+import { mapActions } from 'vuex'
 export default {
   name: 'login',
   data: () => ({
@@ -46,8 +46,9 @@ export default {
     password: ''
   }),
   methods: {
+    ...mapActions(['tryLogin']),
     async login () {
-      let loggedIn = await auth.tryLogin(this.username, this.password)
+      let loggedIn = await this.tryLogin({ username: this.username, password: this.password })
       if (loggedIn) {
         this.$router.push('/')
       } else {
@@ -56,7 +57,7 @@ export default {
     }
   },
   created () {
-    if (auth.loggedIn()) {
+    if (this.loggedIn) {
       this.$router.push('/')
     }
   }
@@ -68,5 +69,11 @@ export default {
   max-height: 12.5em;
   overflow: hidden;
   padding: 0;
+}
+.apply {
+  text-align: center;
+  margin-top: 1em;
+  color: darkgray;
+  font-weight: lighter;
 }
 </style>
