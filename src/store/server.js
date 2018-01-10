@@ -44,6 +44,7 @@ async function searchCoversFromServer (store, searchString) {
 }
 
 async function loginToServer (store, login) {
+  console.log('Logging in to server')
   let json = localStorage.getItem('users')
   if (json === null) {
     let user = { username: login.username, password: login.password, admin: true }
@@ -58,11 +59,43 @@ async function loginToServer (store, login) {
   }
 }
 
+async function getUsersFromServer (store) {
+  console.log('Getting users from server')
+  let json = localStorage.getItem('users')
+  if (json === null) return null
+  return JSON.parse(json)
+}
+
+async function addUserToServer (store, user) {
+  console.log(`Adding user ${user.username} from server`)
+  let json = localStorage.getItem('users')
+  if (json === null) return false
+  let users = JSON.parse(json)
+  if (users.find(d => d.username === user.username) !== undefined) return false
+  users.push(user)
+  localStorage.setItem('users', JSON.stringify(users))
+  return true
+}
+
+async function deleteUserFromServer (store, user) {
+  console.log(`Deleting user ${user.username} from server`)
+  let json = localStorage.getItem('users')
+  if (json === null) return false
+  let users = JSON.parse(json)
+  if (users.find(d => d.username === user.username) === undefined) return false
+  users.splice(users.indexOf(user), 1)
+  localStorage.setItem('users', JSON.stringify(users))
+  return true
+}
+
 export default {
   updateFromServer,
   getMetadataFromServer,
   saveBookToServer,
   saveProgressToServer,
   searchCoversFromServer,
-  loginToServer
+  loginToServer,
+  getUsersFromServer,
+  addUserToServer,
+  deleteUserFromServer
 }

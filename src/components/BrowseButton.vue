@@ -1,24 +1,28 @@
 <template>
-  <v-menu offset-y>
-    <v-btn flat icon slot="activator">
-      <v-icon>
-        sort
-      </v-icon>
+  <div>
+    <v-btn icon @click="updateFromServer">
+      <v-icon>refresh</v-icon>
     </v-btn>
-    <v-list>
-      <v-list-tile @click="author">
-        <v-list-tile-title>Author</v-list-tile-title>
-      </v-list-tile>
-      <v-list-tile @click="title">
-        <v-list-tile-title>Title</v-list-tile-title>
-      </v-list-tile>
-    </v-list>
-  </v-menu>
-  
+    <v-menu offset-y>
+      <v-btn flat icon slot="activator">
+        <v-icon>
+          sort
+        </v-icon>
+      </v-btn>
+      <v-list>
+        <v-list-tile @click="author">
+          <v-list-tile-title>Author</v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile @click="title">
+          <v-list-tile-title>Title</v-list-tile-title>
+        </v-list-tile>
+      </v-list>
+    </v-menu>
+  </div>
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 export default {
   name: 'browseButton',
   methods: {
@@ -28,7 +32,8 @@ export default {
     title () {
       this.setSorting(0)
     },
-    ...mapMutations(['setSorting'])
+    ...mapMutations(['setSorting']),
+    ...mapActions(['updateFromServer'])
   }
 }
 </script>

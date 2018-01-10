@@ -6,7 +6,8 @@
           <v-list-tile-title>Log out</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile v-if="isAdmin">
+      <v-divider></v-divider>
+      <v-list-tile v-if="isAdmin" @click="$router.push('/users')">
         <v-list-tile-content>
           <v-list-tile-title>Users</v-list-tile-title>
           <v-list-tile-sub-title>Manage user accounts</v-list-tile-sub-title>

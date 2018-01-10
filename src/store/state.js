@@ -4,6 +4,6 @@ let sound = {
   howl: null
 }
 let sortby = 0
-let user = null
+let currentUser = null
 
-export default { books, sound, sortby, user }
+export default { books, sound, sortby, currentUser }

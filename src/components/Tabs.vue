@@ -5,7 +5,9 @@
       <v-spacer />
       <v-toolbar-title class="title">{{currentPage}}</v-toolbar-title>
       <v-spacer />
-      <slot name="button"></slot>
+      <div class="buttons">
+        <slot name="button"></slot>
+      </div>
     </v-toolbar>
 
     <v-content app class="content">
@@ -51,5 +53,9 @@ export default {
   padding-right: 0;
   padding-top: 0;
   padding-bottom: 3em;
+}
+.buttons{
+  position: absolute;
+  right: -1em;
 }
 </style>

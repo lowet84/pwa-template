@@ -73,14 +73,14 @@ let saveProgress = function (store, id, force) {
 }
 
 function logout (store) {
-  store.state.user = null
+  store.state.currentUser = null
   localStorage.removeItem('user')
 }
 
 function loadUser (store) {
   let json = localStorage.getItem('user')
   if (json !== null) {
-    store.state.user = JSON.parse(json)
+    store.state.currentUser = JSON.parse(json)
   }
 }
 
@@ -88,7 +88,7 @@ async function tryLogin (store, login) {
   let user = await store.dispatch('loginToServer', login)
   if (user === null) return false
   localStorage.setItem('user', JSON.stringify(user))
-  store.state.user = user
+  store.state.currentUser = user
   return true
 }
 

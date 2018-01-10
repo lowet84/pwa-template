@@ -9,6 +9,8 @@ import Tabs from '@/components/Tabs'
 import Edit from '@/components/Edit'
 import CoverSearch from '@/components/CoverSearch'
 import Login from '@/components/Login'
+import Users from '@/components/Users'
+import AddUser from '@/components/AddUser'
 
 Vue.use(Router)
 
@@ -56,6 +58,16 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/users',
+      name: 'Users',
+      component: Users
+    },
+    {
+      path: '/adduser',
+      name: 'AddUser',
+      component: AddUser
     }
   ]
 })
