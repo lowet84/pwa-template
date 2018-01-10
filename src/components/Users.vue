@@ -19,7 +19,8 @@
           <v-list-tile avatar v-for="user in users" 
             v-bind:key="user.username">
             <v-list-tile-avatar>
-              <v-icon v-if="user.admin">person</v-icon>
+              <v-icon v-if="user.username===currentUser.username">person_pin</v-icon>
+              <v-icon v-else-if="user.admin">person</v-icon>
               <v-icon v-else>person_outline</v-icon>
             </v-list-tile-avatar>
             <v-list-tile-content class="row">

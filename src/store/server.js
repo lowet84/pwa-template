@@ -77,12 +77,13 @@ async function addUserToServer (store, user) {
   return true
 }
 
-async function deleteUserFromServer (store, user) {
-  console.log(`Deleting user ${user.username} from server`)
+async function deleteUserFromServer (store, userToDelete) {
+  console.log(`Deleting user ${userToDelete.username} from server`)
   let json = localStorage.getItem('users')
   if (json === null) return false
   let users = JSON.parse(json)
-  if (users.find(d => d.username === user.username) === undefined) return false
+  let user = users.find(d => d.username === userToDelete.username)
+  if (user === undefined) return false
   users.splice(users.indexOf(user), 1)
   localStorage.setItem('users', JSON.stringify(users))
   return true
