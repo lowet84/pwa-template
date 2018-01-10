@@ -44,7 +44,17 @@ async function searchCoversFromServer (store, searchString) {
 }
 
 async function loginToServer (store, login) {
-  return { username: 'user', token: 'dummy', admin: true }
+  let json = localStorage.getItem('users')
+  if (json === null) {
+    let user = { username: login.username, password: login.password, admin: true }
+    let users = [user]
+    localStorage.setItem('users', JSON.stringify(users))
+    return user
+  } else {
+    let users = JSON.parse(json)
+    let user = users.find(d => d.username === login.username && d.password === login.password)
+    return { username: user.username, token: 'dummyToken', admin: user.admin }
+  }
 }
 
 export default {
