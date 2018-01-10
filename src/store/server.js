@@ -53,6 +53,7 @@ async function loginToServer (store, login) {
   } else {
     let users = JSON.parse(json)
     let user = users.find(d => d.username === login.username && d.password === login.password)
+    if (user === undefined) return null
     return { username: user.username, token: 'dummyToken', admin: user.admin }
   }
 }

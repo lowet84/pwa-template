@@ -86,7 +86,7 @@ function loadUser (store) {
 
 async function tryLogin (store, login) {
   let user = await store.dispatch('loginToServer', login)
-  if (user === undefined) return false
+  if (user === null) return false
   localStorage.setItem('user', JSON.stringify(user))
   store.state.user = user
   return true
