@@ -35,7 +35,8 @@ function getMetadata () {
     author: getString(),
     album: getString(),
     filename: `${getString()}${getString()}${getString()}`,
-    path: `${getString()}${getString()}${getString()}`
+    path: `${getString()}${getString()}${getString()}`,
+    id: Math.floor(Math.random() * 10000000)
   }
 }
 

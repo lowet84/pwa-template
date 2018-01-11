@@ -6,7 +6,7 @@
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-spacer />
-      <v-toolbar-title class="title">{{book.title}}</v-toolbar-title>
+      <v-toolbar-title class="title">Covers</v-toolbar-title>
       <v-spacer />
       <v-spacer />
     </v-toolbar>

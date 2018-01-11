@@ -1,9 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
-import Browse from '@/components/Browse'
-import BrowseButton from '@/components/BrowseButton'
-import Settings from '@/components/Settings'
 import Playing from '@/components/Playing'
 import Tabs from '@/components/Tabs'
 import Edit from '@/components/Edit'
@@ -12,7 +8,7 @@ import Login from '@/components/Login'
 import Users from '@/components/Users'
 import AddUser from '@/components/AddUser'
 import ChangePassword from '@/components/ChangePassword'
-import Imports from '@/components/Imports'
+import ImportSelect from '@/components/ImportSelect'
 
 Vue.use(Router)
 
@@ -20,31 +16,17 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      name: 'Home',
+      component: Tabs
     },
     {
       path: '/playing',
       redirect: '/home'
     },
     {
-      path: '/home',
-      name: 'Home',
-      components: { default: Tabs, inner: Home }
-    },
-    {
-      path: '/browse',
-      name: 'Browse',
-      components: { default: Tabs, inner: Browse, button: BrowseButton }
-    },
-    {
-      path: '/imports',
-      name: 'Imports',
-      components: { default: Tabs, inner: Imports }
-    },
-    {
-      path: '/settings',
-      name: 'Settings',
-      components: { default: Tabs, inner: Settings }
+      path: '/import/:id',
+      name: 'ImportSelect',
+      component: ImportSelect
     },
     {
       path: '/playing/:id',

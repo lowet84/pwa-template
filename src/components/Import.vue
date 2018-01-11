@@ -2,7 +2,7 @@
   <v-list two-line class="list">
     <div v-for="(item, index) in imports" avatar :key="item.title">
       <v-list-tile>
-        <v-list-tile-content @click="log">
+        <v-list-tile-content @click="$router.push(`/import/${item.id}`)">
           <v-list-tile-title>{{item.author}}/{{item.title}}/{{item.album}}</v-list-tile-title>
           <v-list-tile-sub-title>{{item.path}}/{{item.filename}}</v-list-tile-sub-title>
         </v-list-tile-content>
@@ -18,11 +18,6 @@ export default {
   name: 'imports',
   computed: {
     ...mapState(['imports'])
-  },
-  methods: {
-    log () {
-      console.log('click')
-    }
   }
 }
 </script>
