@@ -1,7 +1,7 @@
 <template>
   <v-layout row>
     <v-flex class="flex">
-      <v-card class="card">
+      <v-card class="card" v-if="latestBook!==undefined">
         <v-container fluid grid-list-lg>
           <v-layout row>
             <v-flex xs7>

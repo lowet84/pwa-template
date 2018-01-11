@@ -25,7 +25,7 @@
         <span>Browse</span>
         <v-icon>view_list</v-icon>
       </v-btn>
-      <v-btn flat to="/imports" value="import">
+      <v-btn flat to="/imports" value="import" v-if="isAdmin">
         <span>Imports</span>
         <v-badge color="secondary">
           <span slot="badge" v-if="importCount>0">{{importCount}}</span>
@@ -46,7 +46,7 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'tabs',
   computed: {
-    ...mapGetters(['currentPage', 'importCount'])
+    ...mapGetters(['currentPage', 'importCount', 'isAdmin'])
   }
 }
 </script>
