@@ -125,6 +125,30 @@ async function changePasswordToServer (store, value) {
   return true
 }
 
+async function importBookToServer (store, value) {
+  console.log(`Importing book to server`)
+  let json = localStorage.getItem('imports')
+  if (json === null) return false
+  let imports = JSON.parse(json)
+  let item = imports.find(d => Number(d.id) === Number(value.id))
+  if (item === undefined) return false
+  imports.splice(imports.indexOf(item), 1)
+  localStorage.setItem('imports', JSON.stringify(imports))
+
+  let book = dummy.getDummyBook()
+  book.cover = value.cover.cover
+  book.lastPlayed = Date.parse('01 Jan 1970 00:00:00 GMT')
+  book.progress = 0
+
+  let jsonBooks = localStorage.getItem('books')
+  if (jsonBooks === null) return false
+  let books = JSON.parse(jsonBooks)
+  books.push(book)
+  localStorage.setItem('books', JSON.stringify(books))
+
+  return true
+}
+
 export default {
   updateFromServer,
   getMetadataFromServer,
@@ -136,5 +160,6 @@ export default {
   addUserToServer,
   deleteUserFromServer,
   changeUserTypeToServer,
-  changePasswordToServer
+  changePasswordToServer,
+  importBookToServer
 }

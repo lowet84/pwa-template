@@ -6,14 +6,14 @@
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-spacer />
-      <v-toolbar-title class="title">Covers</v-toolbar-title>
+      <v-toolbar-title class="title">Select book</v-toolbar-title>
       <v-spacer />
       <v-spacer />
     </v-toolbar>
 
     <v-content app class="content">
       <v-container justify-center>
-        <v-subheader>Search: {{book.title}} {{book.author}}</v-subheader>
+        <v-subheader>Search: {{route.params.search}}</v-subheader>
         <v-layout>
           <v-flex xs12 sm6 offset-sm3>
             <v-card>
@@ -52,26 +52,24 @@ export default {
     back () {
       this.$router.go(-1)
     },
-    ...mapActions(['searchCoversFromServer', 'saveBookToServer']),
-    select (cover) {
-      this.book.cover = cover.cover
-      this.saveBookToServer(this.book)
-      this.$router.go(-1)
+    ...mapActions(['searchCoversFromServer', 'importBookToServer', 'updateFromServer']),
+    async select (cover) {
+      var res = await this.importBookToServer({ id: this.route.params.id, cover: cover })
+      if (res) {
+        await this.updateFromServer()
+        this.$router.go(-2)
+      }
     }
   },
   computed: {
-    ...mapGetters(['getBook']),
+    ...mapGetters(['getImport']),
     ...mapState(['route']),
-    book: function () {
-      return this.getBook(this.route.params.id)
+    importItem: function () {
+      return this.getImport(this.route.params.id)
     }
   },
   created () {
-    let book = this.book
-    if (book === undefined) {
-      this.$router.push('/')
-    }
-    this.searchCoversFromServer(`${this.book.author} ${this.book.title}`)
+    this.searchCoversFromServer(this.route.params.search)
       .then(covers => { this.covers = covers })
   }
 }

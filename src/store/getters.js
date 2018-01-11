@@ -40,6 +40,12 @@ function getBook (state) {
   }
 }
 
+function getImport (state) {
+  return function (id) {
+    return state.imports.find(d => d.id === Number(id))
+  }
+}
+
 function loggedIn (state) {
   return state.currentUser !== null
 }
@@ -59,5 +65,6 @@ export default {
   getBook,
   loggedIn,
   isAdmin,
-  importCount
+  importCount,
+  getImport
 }

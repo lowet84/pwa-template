@@ -9,6 +9,7 @@ import Users from '@/components/Users'
 import AddUser from '@/components/AddUser'
 import ChangePassword from '@/components/ChangePassword'
 import ImportSelect from '@/components/ImportSelect'
+import ImportSearch from '@/components/ImportSearch'
 
 Vue.use(Router)
 
@@ -27,6 +28,11 @@ export default new Router({
       path: '/import/:id',
       name: 'ImportSelect',
       component: ImportSelect
+    },
+    {
+      path: '/import/:id/:search',
+      name: 'ImportSearch',
+      component: ImportSearch
     },
     {
       path: '/playing/:id',
