@@ -6,30 +6,32 @@
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-spacer />
-      <v-toolbar-title class="title">Add new user</v-toolbar-title>
+      <v-toolbar-title class="title">Change password</v-toolbar-title>
       <v-spacer />
     </v-toolbar>
 
     <v-content app class="content">
       <v-container justify-center>
-        <v-text-field label="Username" v-model="username" :rules="[rules.userlength]"></v-text-field>
+        <v-text-field type="password" label="Old password" v-model="oldpass"></v-text-field>
         <v-text-field type="password" label="Password" v-model="password" :rules="[rules.pwlength]"></v-text-field>
         <v-text-field type="password" label="Confirm Password" v-model="pwconfirm"></v-text-field>
-        <v-switch label="Admin" v-model="admin"></v-switch>
-        <v-btn block color="accent" @click="dialog = true" :disabled="!canAdd">Add user</v-btn>
+        <v-btn block color="accent" @click="showDialog" :disabled="!canChange">Change password</v-btn>
       </v-container>
     </v-content>
 
     <v-dialog v-model="dialog" max-width="290">
       <v-card>
-        <v-card-title class="headline">Create user</v-card-title>
+        <v-card-title class="headline">Confirm password change</v-card-title>
         <v-card-text>
-          Are you sure that you want to create the user "{{username}}"?
+          Are you sure that you want to change your password?
+        </v-card-text>
+        <v-card-text class="wrongpass" v-if="wrongpass">
+          Could not change password.
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn flat="flat" @click.native="dialog = false">No</v-btn>
-          <v-btn color="primary" flat="flat" @click.native="add">Yes</v-btn>
+          <v-btn color="primary" flat="flat" @click.native="change">Yes</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -37,42 +39,48 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
   name: 'users',
   data: () => ({
+    wrongpass: false,
     dialog: false,
-    username: '',
+    oldpass: '',
     password: '',
     pwconfirm: '',
-    admin: false,
     rules: {
-      pwlength: (value) => value.length > 7 || 'Password must be at least 8 characters',
-      userlength: (value) => value.length > 3 || 'Username must be at least 4 characters'
+      pwlength: (value) => value.length > 7 || 'Password must be at least 8 characters'
     }
   }),
   methods: {
     back () {
       this.$router.go(-1)
     },
-    async add () {
-      let res = await this.addUserToServer({
-        username: this.username,
+    showDialog () {
+      this.wrongpass = false
+      this.dialog = true
+    },
+    async change () {
+      let res = await this.changePasswordToServer({
+        username: this.currentUser.username,
         password: this.password,
-        admin: this.admin
+        oldpass: this.oldpass
       })
       if (res) {
         this.$router.go(-1)
+      } else {
+        this.wrongpass = true
       }
     },
-    ...mapActions(['addUserToServer'])
+    ...mapActions(['changePasswordToServer'])
   },
   computed: {
-    canAdd () {
-      return this.username.length > 0 &&
+    canChange () {
+      return this.oldpass.length > 0 &&
         this.password.length > 7 &&
         this.password === this.pwconfirm
-    }
+    },
+    ...mapState(['currentUser'])
   }
 }
 </script>
@@ -81,5 +89,8 @@ export default {
 .user {
   display: flex;
   flex-direction: row;
+}
+.wrongpass {
+  color: red;
 }
 </style>

@@ -13,6 +13,12 @@
           <v-list-tile-sub-title>Manage user accounts</v-list-tile-sub-title>
         </v-list-tile-content>
       </v-list-tile>
+      <v-divider></v-divider>
+      <v-list-tile @click="$router.push('/changepass')">
+        <v-list-tile-content>
+          <v-list-tile-title>Change password</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
     </v-list>
 
     <v-dialog v-model="dialog" max-width="290">

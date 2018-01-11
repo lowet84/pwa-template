@@ -90,13 +90,26 @@ async function deleteUserFromServer (store, userToDelete) {
 }
 
 async function changeUserTypeToServer (store, value) {
-  console.log(`Deleting user ${value.user.username} from server`)
+  console.log(`Changing user type for user ${value.user.username} from server`)
   let json = localStorage.getItem('users')
   if (json === null) return false
   let users = JSON.parse(json)
   let user = users.find(d => d.username === value.user.username)
   if (user === undefined) return false
   user.admin = value.admin
+  localStorage.setItem('users', JSON.stringify(users))
+  return true
+}
+
+async function changePasswordToServer (store, value) {
+  console.log(`Changing password to server`)
+  let json = localStorage.getItem('users')
+  if (json === null) return false
+  let users = JSON.parse(json)
+  let user = users.find(d => d.username === value.username)
+  if (user === undefined) return false
+  if (user.password !== value.oldpass) return false
+  user.password = value.password
   localStorage.setItem('users', JSON.stringify(users))
   return true
 }
@@ -111,5 +124,6 @@ export default {
   getUsersFromServer,
   addUserToServer,
   deleteUserFromServer,
-  changeUserTypeToServer
+  changeUserTypeToServer,
+  changePasswordToServer
 }

@@ -11,6 +11,7 @@ import CoverSearch from '@/components/CoverSearch'
 import Login from '@/components/Login'
 import Users from '@/components/Users'
 import AddUser from '@/components/AddUser'
+import ChangePassword from '@/components/ChangePassword'
 
 Vue.use(Router)
 
@@ -68,6 +69,11 @@ export default new Router({
       path: '/adduser',
       name: 'AddUser',
       component: AddUser
+    },
+    {
+      path: '/changepass',
+      name: 'ChangePassword',
+      component: ChangePassword
     }
   ]
 })
