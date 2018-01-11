@@ -35,10 +35,10 @@
                   <v-list-tile @click="deleteUser(user)">
                     <v-list-tile-title>Delete user</v-list-tile-title>
                   </v-list-tile>
-                  <v-list-tile @click="" v-if="!user.admin">
+                  <v-list-tile @click="changeUserType(user,true)" v-if="!user.admin">
                     <v-list-tile-title>Promote to admin</v-list-tile-title>
                   </v-list-tile>
-                  <v-list-tile @click="" v-if="user.admin">
+                  <v-list-tile @click="changeUserType(user,false)" v-if="user.admin">
                     <v-list-tile-title>Demote to user</v-list-tile-title>
                   </v-list-tile>
                 </v-list>
@@ -83,7 +83,7 @@ export default {
     back () {
       this.$router.go(-1)
     },
-    ...mapActions(['getUsersFromServer', 'deleteUserFromServer']),
+    ...mapActions(['getUsersFromServer', 'deleteUserFromServer', 'changeUserTypeToServer']),
     async init () {
       this.users = await this.getUsersFromServer()
     },
@@ -94,6 +94,18 @@ export default {
       this.dialog.item = user
       this.dialog.action = async function (value) {
         await context.deleteUserFromServer(value)
+        context.users = await context.getUsersFromServer()
+        this.show = false
+      }
+      this.dialog.show = true
+    },
+    changeUserType (user, admin) {
+      let context = this
+      this.dialog.title = `${admin ? 'Promote' : 'Demote'} user`
+      this.dialog.text = `Are you sure that you want to ${admin ? 'promote' : 'demote'} the user "${user.username}"?`
+      this.dialog.item = { user: user, admin: admin }
+      this.dialog.action = async function (value) {
+        await context.changeUserTypeToServer(value)
         context.users = await context.getUsersFromServer()
         this.show = false
       }

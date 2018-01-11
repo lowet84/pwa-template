@@ -89,6 +89,18 @@ async function deleteUserFromServer (store, userToDelete) {
   return true
 }
 
+async function changeUserTypeToServer (store, value) {
+  console.log(`Deleting user ${value.user.username} from server`)
+  let json = localStorage.getItem('users')
+  if (json === null) return false
+  let users = JSON.parse(json)
+  let user = users.find(d => d.username === value.user.username)
+  if (user === undefined) return false
+  user.admin = value.admin
+  localStorage.setItem('users', JSON.stringify(users))
+  return true
+}
+
 export default {
   updateFromServer,
   getMetadataFromServer,
@@ -98,5 +110,6 @@ export default {
   loginToServer,
   getUsersFromServer,
   addUserToServer,
-  deleteUserFromServer
+  deleteUserFromServer,
+  changeUserTypeToServer
 }
