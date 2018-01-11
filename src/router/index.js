@@ -12,6 +12,7 @@ import Login from '@/components/Login'
 import Users from '@/components/Users'
 import AddUser from '@/components/AddUser'
 import ChangePassword from '@/components/ChangePassword'
+import Imports from '@/components/Imports'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/browse',
       name: 'Browse',
       components: { default: Tabs, inner: Browse, button: BrowseButton }
+    },
+    {
+      path: '/imports',
+      name: 'Imports',
+      components: { default: Tabs, inner: Imports }
     },
     {
       path: '/settings',

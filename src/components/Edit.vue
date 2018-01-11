@@ -68,7 +68,7 @@ export default {
     book: function () {
       return this.getBook(this.route.params.id)
     },
-    meta1 () { return `${this.book.metadata.author}/${this.book.metadata.title}` },
+    meta1 () { return `${this.book.metadata.author}/${this.book.metadata.title}/${this.book.metadata.album}` },
     meta2 () { return `${this.book.metadata.path}/${this.book.metadata.filename}` }
   },
   watch: {

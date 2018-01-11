@@ -2,11 +2,6 @@ function currentPage (state) {
   return state.route.name
 }
 
-function showNav (state) {
-  let withNav = ['Home', 'Browse', 'Settings']
-  return withNav.includes(state.route.name)
-}
-
 function allBooks (state) {
   return state.books
     .sort((a, b) => {
@@ -53,12 +48,16 @@ function isAdmin (state) {
   return state.currentUser.admin
 }
 
+function importCount (state) {
+  return state.imports.length
+}
+
 export default {
   currentPage,
   allBooks,
-  showNav,
   latestBook,
   getBook,
   loggedIn,
-  isAdmin
+  isAdmin,
+  importCount
 }

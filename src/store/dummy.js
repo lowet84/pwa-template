@@ -1,7 +1,7 @@
 function populateDummyData () {
   let books = []
   console.log('setting up dummy data')
-  for (let index = 0; index < 8; index++) {
+  for (let index = 0; index < 2; index++) {
     let date = randomDate(new Date(2017, 0, 1), new Date())
     let length = 4201 // Math.floor(Math.random() * 40000)
     let progressState = Math.floor(Math.random() * 3)
@@ -33,9 +33,18 @@ function getMetadata () {
   return {
     title: getString(),
     author: getString(),
+    album: getString(),
     filename: `${getString()}${getString()}${getString()}`,
     path: `${getString()}${getString()}${getString()}`
   }
+}
+
+function populateImports () {
+  let imports = []
+  for (let index = 0; index < 15; index++) {
+    imports.push(getMetadata())
+  }
+  return imports
 }
 
 function getString () {
@@ -71,4 +80,4 @@ function getSearchResults () {
   ]
 }
 
-export default { populateDummyData, getMetadata, getSearchResults }
+export default { populateDummyData, getMetadata, getSearchResults, populateImports }

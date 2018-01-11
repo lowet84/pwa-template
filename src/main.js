@@ -13,7 +13,7 @@ sync(store, router)
 Vue.use(Vuetify, {
   theme: {
     primary: colors.red.darken1, // #E53935,
-    secondary: colors.red.lighten4, // #FFCDD2
+    secondary: colors.brown.lighten1, // #FFCDD2
     accent: colors.deepOrange.darken1 // #3F51B5
   }
 })

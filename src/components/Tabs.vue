@@ -16,7 +16,7 @@
       </v-container>
     </v-content>
 
-    <v-bottom-nav :value="showNav" color="primary">
+    <v-bottom-nav value="true" color="primary">
       <v-btn flat to="/home" value="home">
         <span>Home</span>
         <v-icon>home</v-icon>
@@ -24,6 +24,13 @@
       <v-btn flat to="/browse" value="browse">
         <span>Browse</span>
         <v-icon>view_list</v-icon>
+      </v-btn>
+      <v-btn flat to="/imports" value="import">
+        <span>Imports</span>
+        <v-badge color="secondary">
+          <span slot="badge" v-if="importCount>0">{{importCount}}</span>
+          <v-icon large>new_releases</v-icon>
+        </v-badge>
       </v-btn>
       <v-btn flat to="/settings" value="settings">
         <span>Settings</span>
@@ -39,7 +46,7 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'tabs',
   computed: {
-    ...mapGetters(['currentPage', 'showNav'])
+    ...mapGetters(['currentPage', 'importCount'])
   }
 }
 </script>
@@ -54,7 +61,7 @@ export default {
   padding-top: 0;
   padding-bottom: 3em;
 }
-.buttons{
+.buttons {
   position: absolute;
   right: -1em;
 }

@@ -12,6 +12,17 @@ async function updateFromServer (store) {
 
   store.state.books.splice(0, store.state.books.length)
   store.state.books.push(...books)
+
+  let imports = localStorage.getItem('imports')
+  if (imports === null) {
+    imports = dummy.populateImports()
+    localStorage.setItem('imports', JSON.stringify(imports))
+  } else {
+    imports = JSON.parse(imports)
+  }
+
+  store.state.imports.splice(0, store.state.imports.length)
+  store.state.imports.push(...imports)
 }
 
 async function getMetadataFromServer (store, id) {
