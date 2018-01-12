@@ -47,7 +47,7 @@ function loggedIn (state) {
 }
 
 function isAdmin (state) {
-  return state.currentUser.admin
+  return state.currentUser === null ? false : state.currentUser.admin
 }
 
 function importCount (state) {
