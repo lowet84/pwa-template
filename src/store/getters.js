@@ -1,7 +1,3 @@
-function currentPage (state) {
-  return state.route.name
-}
-
 function allBooks (state) {
   return state.books
     .sort((a, b) => {
@@ -59,7 +55,6 @@ function importCount (state) {
 }
 
 export default {
-  currentPage,
   allBooks,
   latestBook,
   getBook,

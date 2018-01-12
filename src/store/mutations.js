@@ -6,4 +6,8 @@ function setSorting (state, value) {
   state.sortby = value
 }
 
-export default { setApplicationTitle, setSorting }
+function setCurrentPage (state, value) {
+  state.currentPage = value
+}
+
+export default { setApplicationTitle, setSorting, setCurrentPage }
