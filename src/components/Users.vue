@@ -51,13 +51,13 @@
 
     <v-dialog v-model="dialog.show" max-width="290">
       <v-card>
-        <v-card-title class="headline">{{dialog.Title}}</v-card-title>
+        <v-card-title class="headline">{{dialog.title}}</v-card-title>
         <v-card-text>
           {{dialog.text}}
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn flat="flat" @click.native="dialog = false">No</v-btn>
+          <v-btn flat="flat" @click.native="dialog.show = false">No</v-btn>
           <v-btn color="primary" flat="flat" @click.native="dialog.action(dialog.item)">Yes</v-btn>
         </v-card-actions>
       </v-card>
