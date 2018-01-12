@@ -6,7 +6,8 @@
       <v-toolbar-title class="title">{{currentPage}}</v-toolbar-title>
       <v-spacer />
       <div class="buttons">
-        <slot name="button"></slot>
+        <BrowseButton v-if="currentPage==='Browse'"/>
+        <ImportButton v-if="currentPage==='Import'"/>
       </div>
     </v-toolbar>
 
@@ -19,23 +20,23 @@
       </v-container>
     </v-content>
 
-    <v-bottom-nav value="true" color="primary" :active.sync="currentPage">
-      <v-btn flat @click="setCurrentPage('Home')" value="Home">
+    <v-bottom-nav value="true" color="primary" :active.sync="page">
+      <v-btn flat value="Home">
         <span>Home</span>
         <v-icon>home</v-icon>
       </v-btn>
-      <v-btn flat @click="setCurrentPage('Browse')" value="Browse">
+      <v-btn flat value="Browse">
         <span>Browse</span>
         <v-icon>view_list</v-icon>
       </v-btn>
-      <v-btn flat @click="setCurrentPage('Import')" value="Import" v-if="isAdmin">
+      <v-btn flat value="Import" v-if="isAdmin">
         <span>Import</span>
         <v-badge color="secondary">
           <span slot="badge" v-if="importCount>0">{{importCount}}</span>
           <v-icon large>new_releases</v-icon>
         </v-badge>
       </v-btn>
-      <v-btn flat @click="setCurrentPage('Settings')" value="Settings">
+      <v-btn flat value="Settings">
         <span>Settings</span>
         <v-icon>settings</v-icon>
       </v-btn>
@@ -48,13 +49,23 @@
 import { mapGetters, mapState, mapMutations } from 'vuex'
 import Home from './Home'
 import Browse from './Browse'
+import BrowseButton from './BrowseButton'
 import Import from './Import'
+import ImportButton from './ImportButton'
 import Settings from './Settings'
 export default {
   name: 'tabs',
   computed: {
     ...mapGetters(['importCount', 'isAdmin']),
-    ...mapState(['currentPage'])
+    ...mapState(['currentPage']),
+    page: {
+      get () {
+        return this.currentPage
+      },
+      set (value) {
+        this.setCurrentPage(value)
+      }
+    }
   },
   methods: {
     ...mapMutations(['setCurrentPage'])
@@ -62,7 +73,9 @@ export default {
   components: {
     Home,
     Browse,
+    BrowseButton,
     Import,
+    ImportButton,
     Settings
   }
 }

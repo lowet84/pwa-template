@@ -19,7 +19,7 @@
                 type="password"
                 v-model="password"
               ></v-text-field>
-          <v-btn type="submit" block color="accent" @click="login">Log in</v-btn>
+          <v-btn type="submit" large block color="accent" @click="login">Log in</v-btn>
         </v-form>
       </v-container>
     </v-content>
@@ -31,6 +31,10 @@
           You were not able to log in. 
           Did you use the wrong username/password?
         </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn flat="flat" @click.native="dialog = false">Ok</v-btn>
+        </v-card-actions>
       </v-card>
     </v-dialog>
   </v-app>

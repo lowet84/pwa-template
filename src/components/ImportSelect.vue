@@ -20,7 +20,7 @@
               <v-list-tile-title>{{importItem.author}} {{importItem.title}}</v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-btn icon @click="$router.push(`/import/${importItem.id}/${importItem.author} ${importItem.title}`)">
+              <v-btn icon @click="$router.push(`/import/${id}/${importItem.author} ${importItem.title}`)">
                 <v-icon>search</v-icon>
               </v-btn>
             </v-list-tile-action>
@@ -30,7 +30,7 @@
               <v-list-tile-title>{{importItem.author}} {{importItem.album}}</v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-btn icon @click="$router.push(`/import/${importItem.id}/${importItem.author} ${importItem.album}`)">
+              <v-btn icon @click="$router.push(`/import/${id}/${importItem.author} ${importItem.album}`)">
                 <v-icon>search</v-icon>
               </v-btn>
             </v-list-tile-action>
@@ -40,7 +40,7 @@
               <v-list-tile-title>{{importItem.path}}</v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-btn icon @click="$router.push(`/import/${importItem.id}/${importItem.path}`)">
+              <v-btn icon @click="$router.push(`/import/${id}/${importItem.path}`)">
                 <v-icon>search</v-icon>
               </v-btn>
             </v-list-tile-action>
@@ -51,7 +51,7 @@
         <v-subheader>Custom search:</v-subheader>
         <v-text-field label="Search string" v-model="search"></v-text-field>
         <v-btn color="accent" :disabled="search.length===0"
-           @click="$router.push(`/import/${importItem.id}/${search}`)">
+           @click="$router.push(`/import/${id}/${search}`)">
           Search
         </v-btn>
       </v-container>
@@ -73,9 +73,18 @@ export default {
   }),
   computed: {
     ...mapGetters(['getImport']),
-    ...mapState(['route']),
+    ...mapState(['route', 'imports']),
     importItem () {
-      return this.getImport(this.route.params.id)
+      let id = this.route.params.id !== 'quick'
+        ? this.route.params.id
+        : (this.imports[0] !== undefined ? this.imports[0].id : null)
+      if (id === null) this.$router.go(-1)
+      return this.getImport(id)
+    },
+    id () {
+      return this.route.params.id !== 'quick'
+        ? this.importItem.id
+        : 'quick'
     }
   }
 }

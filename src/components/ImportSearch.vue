@@ -54,18 +54,24 @@ export default {
     },
     ...mapActions(['searchCoversFromServer', 'importBookToServer', 'updateFromServer']),
     async select (cover) {
-      var res = await this.importBookToServer({ id: this.route.params.id, cover: cover })
+      var res = await this.importBookToServer({ id: this.importItem.id, cover: cover })
       if (res) {
         await this.updateFromServer()
-        this.$router.go(-2)
+        this.$router.go(this.route.params.id !== 'quick'
+          ? -2
+          : -1)
       }
     }
   },
   computed: {
     ...mapGetters(['getImport']),
-    ...mapState(['route']),
+    ...mapState(['route', 'imports']),
     importItem: function () {
-      return this.getImport(this.route.params.id)
+      let id = this.route.params.id !== 'quick'
+        ? this.route.params.id
+        : (this.imports[0] !== undefined ? this.imports[0].id : null)
+      if (id === null) this.$router.go(-1)
+      return this.getImport(id)
     }
   },
   created () {
