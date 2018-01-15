@@ -7,7 +7,7 @@ ADD web/package* /web/
 WORKDIR /web
 
 RUN npm install
-ADD web/* /web/
+ADD web /web
 
 RUN npm run build
 
