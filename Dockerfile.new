@@ -1,0 +1,24 @@
+FROM alpine:3.7 as frontend
+
+RUN apk add --no-cache nodejs-npm git
+
+ADD web /web
+WORKDIR /web
+
+RUN npm install
+RUN npm run build
+
+FROM microsoft/dotnet-nightly:2.1-sdk as backend
+
+ADD api /api
+COPY --from=frontend /web/dist /api/wwwroot
+
+WORKDIR /api
+RUN dotnet restore
+RUN dotnet publish -c Release -r alpine.3.6-x64 -o out
+
+FROM microsoft/dotnet-nightly:2.1-runtime-deps-alpine
+
+WORKDIR /app
+
+COPY --from=backend /api/out/ .
