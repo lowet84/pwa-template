@@ -15,9 +15,9 @@ COPY --from=frontend /web/dist /api/wwwroot
 
 WORKDIR /api
 RUN dotnet restore
-RUN dotnet publish -c Release -r linux-x64 -o out
+RUN dotnet publish -c Release -o out
 
-FROM microsoft/dotnet:2-runtime-deps
+FROM microsoft/aspnetcore
 
 WORKDIR /app
 
