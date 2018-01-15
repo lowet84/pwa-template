@@ -22,3 +22,5 @@ FROM microsoft/aspnetcore
 WORKDIR /app
 
 COPY --from=backend /api/out/ .
+
+CMD dotnet api.dll
