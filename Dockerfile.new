@@ -8,16 +8,16 @@ WORKDIR /web
 RUN npm install
 RUN npm run build
 
-FROM microsoft/dotnet-nightly:2.1-sdk as backend
+FROM microsoft/dotnet:2-sdk as backend
 
 ADD api /api
 COPY --from=frontend /web/dist /api/wwwroot
 
 WORKDIR /api
 RUN dotnet restore
-RUN dotnet publish -c Release -r alpine.3.6-x64 -o out
+RUN dotnet publish -c Release -r linux-x64 -o out
 
-FROM microsoft/dotnet-nightly:2.1-runtime-deps-alpine
+FROM microsoft/dotnet:2-runtime-deps
 
 WORKDIR /app
 
