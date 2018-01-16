@@ -17,7 +17,8 @@ namespace api
                 app,
                 env,
                 new DatabaseName(Program.DatabaseName),
-                new DatabaseUrl(databaseUrl));
+                new DatabaseUrl(databaseUrl),
+                new GraphQlDefaultHandler());
         }
     }
 }
