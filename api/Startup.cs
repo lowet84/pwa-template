@@ -1,4 +1,5 @@
 ﻿using System;
+using api.Handlers;
 using GraphQlRethinkDbLibrary.Database;
 using GraphQlRethinkDbLibrary.Handlers;
 using Microsoft.AspNetCore.Builder;
@@ -18,7 +19,7 @@ namespace api
                 env,
                 new DatabaseName(Program.DatabaseName),
                 new DatabaseUrl(databaseUrl),
-                new GraphQlDefaultHandler());
+                new GraphQlHandler());
         }
     }
 }

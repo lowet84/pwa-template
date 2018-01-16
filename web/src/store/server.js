@@ -1,4 +1,5 @@
 import dummy from './dummy'
+import api from '../api'
 
 async function updateFromServer (store) {
   console.log('Updating books list from server')
@@ -54,21 +55,31 @@ async function searchCoversFromServer (store, searchString) {
   return dummy.getSearchResults()
 }
 
-async function loginToServer (store, login) {
-  console.log('Logging in to server')
-  let json = localStorage.getItem('users')
-  if (json === null) {
-    let user = { username: login.username, password: login.password, admin: true }
-    let users = [user]
-    localStorage.setItem('users', JSON.stringify(users))
-    return user
-  } else {
-    let users = JSON.parse(json)
-    let user = users.find(d => d.username === login.username && d.password === login.password)
-    if (user === undefined) return null
-    return { username: user.username, token: 'dummyToken', admin: user.admin }
-  }
+async function importBookToServer (store, value) {
+  console.log(`Importing book to server`)
+  let json = localStorage.getItem('imports')
+  if (json === null) return false
+  let imports = JSON.parse(json)
+  let item = imports.find(d => Number(d.id) === Number(value.id))
+  if (item === undefined) return false
+  imports.splice(imports.indexOf(item), 1)
+  localStorage.setItem('imports', JSON.stringify(imports))
+
+  let book = dummy.getDummyBook()
+  book.cover = value.cover.cover
+  book.lastPlayed = Date.parse('01 Jan 1970 00:00:00 GMT')
+  book.progress = 0
+
+  let jsonBooks = localStorage.getItem('books')
+  if (jsonBooks === null) return false
+  let books = JSON.parse(jsonBooks)
+  books.push(book)
+  localStorage.setItem('books', JSON.stringify(books))
+
+  return true
 }
+
+// TODO: users and login
 
 async function getUsersFromServer (store) {
   console.log('Getting users from server')
@@ -125,28 +136,13 @@ async function changePasswordToServer (store, value) {
   return true
 }
 
-async function importBookToServer (store, value) {
-  console.log(`Importing book to server`)
-  let json = localStorage.getItem('imports')
-  if (json === null) return false
-  let imports = JSON.parse(json)
-  let item = imports.find(d => Number(d.id) === Number(value.id))
-  if (item === undefined) return false
-  imports.splice(imports.indexOf(item), 1)
-  localStorage.setItem('imports', JSON.stringify(imports))
+// Moved to api
 
-  let book = dummy.getDummyBook()
-  book.cover = value.cover.cover
-  book.lastPlayed = Date.parse('01 Jan 1970 00:00:00 GMT')
-  book.progress = 0
-
-  let jsonBooks = localStorage.getItem('books')
-  if (jsonBooks === null) return false
-  let books = JSON.parse(jsonBooks)
-  books.push(book)
-  localStorage.setItem('books', JSON.stringify(books))
-
-  return true
+async function loginToServer (store, login) {
+  console.log('Logging in to server')
+  let res = await api('login', { username: login.username, password: login.password })
+  if (res === null) return null
+  return { username: login.username, token: res.token, admin: res.admin }
 }
 
 export default {
