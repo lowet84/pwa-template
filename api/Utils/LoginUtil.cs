@@ -53,9 +53,9 @@ namespace api.Utils
             return passwordHash;
         }
 
-        public static void ValidateUser(string username, bool admin = false)
+        public static void ValidateUser(this UserContext context, bool admin = false)
         {
-            var user = UserContext.SearchShallow<User>(expr => expr.Filter(item => item.G("Username") == username))
+            var user = UserContext.SearchShallow<User>(expr => expr.Filter(item => item.G("Username") == context.UserName))
                 .SingleOrDefault();
             if(user==null) throw new Exception("User does not exist");
             if(admin && !user.Admin) throw new Exception("User is not admin");

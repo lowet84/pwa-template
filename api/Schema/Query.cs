@@ -35,7 +35,7 @@ namespace api.Schema
         [Description("Get all users")]
         public User[] AllUsers(UserContext context)
         {
-            LoginUtil.ValidateUser(context.UserName, true);
+            context.ValidateUser(true);
             return context.GetAll<User>();
         }
     }
