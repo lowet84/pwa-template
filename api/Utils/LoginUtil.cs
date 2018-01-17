@@ -3,33 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using api.Model;
+using GraphQlRethinkDbLibrary;
 
 namespace api.Utils
 {
     public static class LoginUtil
     {
-        private static Dictionary<string, string> _tokens = new Dictionary<string, string>();
 
-        public static string CreateToken(string username)
+        public static Token CreateToken(string username)
         {
-            if (_tokens.ContainsKey(username))
-                _tokens.Remove(username);
+            var existing = UserContext.SearchShallow<Token>(expr => expr.Filter(item => item.G("Username") == username))
+                .SingleOrDefault();
+            var newToken = new Token(username);
+            if (existing != null)
+            {
 
-            var token = Guid.NewGuid().ToString();
-            _tokens.Add(username, token);
-            return token;
+                UserContext.UpdateDefault(newToken, existing.Id);
+            }
+            else
+            {
+                UserContext.AddDefault(newToken);
+            }
+            return newToken;
         }
 
-        public static string GetToken(string username)
+        public static Token GetTokenByUsername(string username)
         {
-            return _tokens.ContainsKey(username)
-                ? _tokens[username]
-                : null;
+            return UserContext.SearchShallow<Token>(expr => expr.Filter(item => item.G("Username") == username))
+                .SingleOrDefault();
         }
 
-        public static string GetUser(string token)
+        public static Token GetToken(string token)
         {
-            return _tokens.SingleOrDefault(d => d.Value == token).Key;
+            return UserContext.SearchShallow<Token>(expr => expr.Filter(item => item.G("LoginToken") == token))
+                .SingleOrDefault();
         }
 
         public static string CreatePasswordHash(string password)
@@ -43,6 +51,14 @@ namespace api.Utils
             Array.Copy(hash, 0, hashBytes, 16, 20);
             var passwordHash = Convert.ToBase64String(hashBytes);
             return passwordHash;
+        }
+
+        public static void ValidateUser(string username, bool admin = false)
+        {
+            var user = UserContext.SearchShallow<User>(expr => expr.Filter(item => item.G("Username") == username))
+                .SingleOrDefault();
+            if(user==null) throw new Exception("User does not exist");
+            if(admin && !user.Admin) throw new Exception("User is not admin");
         }
 
         public static bool ValidatePassword(string password, string passwordHash)

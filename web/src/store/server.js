@@ -81,13 +81,6 @@ async function importBookToServer (store, value) {
 
 // TODO: users and login
 
-async function getUsersFromServer (store) {
-  console.log('Getting users from server')
-  let json = localStorage.getItem('users')
-  if (json === null) return null
-  return JSON.parse(json)
-}
-
 async function addUserToServer (store, user) {
   console.log(`Adding user ${user.username} from server`)
   let json = localStorage.getItem('users')
@@ -143,6 +136,12 @@ async function loginToServer (store, login) {
   let res = await api('login', { username: login.username, password: login.password })
   if (res === null) return null
   return { username: login.username, token: res.token, admin: res.admin }
+}
+
+async function getUsersFromServer (store) {
+  console.log('Getting users from server')
+  let users = api('allUsers')
+  return users
 }
 
 export default {

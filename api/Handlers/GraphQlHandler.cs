@@ -19,7 +19,7 @@ namespace api.Handlers
                 ((Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.FrameRequestHeaders)context.Request.Headers)
                 .HeaderAuthorization;
             var token = tokenHeader.ToString().Replace("Bearer", string.Empty).Trim();
-            _user = LoginUtil.GetUser(token);
+            _user = LoginUtil.GetToken(token)?.Username;
             return base.Process(context);
         }
 

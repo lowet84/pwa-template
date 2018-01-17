@@ -11,4 +11,14 @@ function login (args) {
     }`
 }
 
-export default { login }
+function allUsers () {
+  return `query{
+    allUsers{
+      admin 
+      username 
+      id
+    }
+  }`
+}
+
+export default { login, allUsers }
