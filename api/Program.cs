@@ -17,7 +17,7 @@ namespace api
                 .UseApplicationInsights()
                 .UseUrls("http://*:7000")
                 .Build();
-
+            ImportRunner.Start();
             host.Run();
         }
     }

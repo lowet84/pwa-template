@@ -20,6 +20,7 @@ RUN dotnet publish -c Release -o out
 FROM microsoft/aspnetcore
 
 WORKDIR /app
+RUN mkdir -p /data
 
 COPY --from=backend /api/out/ .
 

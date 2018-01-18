@@ -19,7 +19,8 @@ namespace api
                 env,
                 new DatabaseName(Program.DatabaseName),
                 new DatabaseUrl(databaseUrl),
-                new GraphQlHandler());
+                new GraphQlHandler(),
+                new AudioHandler());
         }
     }
 }
