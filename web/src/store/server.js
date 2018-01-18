@@ -79,61 +79,12 @@ async function importBookToServer (store, value) {
   return true
 }
 
-// TODO: users and login
-
-async function addUserToServer (store, user) {
-  console.log(`Adding user ${user.username} from server`)
-  let json = localStorage.getItem('users')
-  if (json === null) return false
-  let users = JSON.parse(json)
-  if (users.find(d => d.username === user.username) !== undefined) return false
-  users.push(user)
-  localStorage.setItem('users', JSON.stringify(users))
-  return true
-}
-
-async function deleteUserFromServer (store, userToDelete) {
-  console.log(`Deleting user ${userToDelete.username} from server`)
-  let json = localStorage.getItem('users')
-  if (json === null) return false
-  let users = JSON.parse(json)
-  let user = users.find(d => d.username === userToDelete.username)
-  if (user === undefined) return false
-  users.splice(users.indexOf(user), 1)
-  localStorage.setItem('users', JSON.stringify(users))
-  return true
-}
-
-async function changeUserTypeToServer (store, value) {
-  console.log(`Changing user type for user ${value.user.username} from server`)
-  let json = localStorage.getItem('users')
-  if (json === null) return false
-  let users = JSON.parse(json)
-  let user = users.find(d => d.username === value.user.username)
-  if (user === undefined) return false
-  user.admin = value.admin
-  localStorage.setItem('users', JSON.stringify(users))
-  return true
-}
-
-async function changePasswordToServer (store, value) {
-  console.log(`Changing password to server`)
-  let json = localStorage.getItem('users')
-  if (json === null) return false
-  let users = JSON.parse(json)
-  let user = users.find(d => d.username === value.username)
-  if (user === undefined) return false
-  if (user.password !== value.oldpass) return false
-  user.password = value.password
-  localStorage.setItem('users', JSON.stringify(users))
-  return true
-}
-
 // Moved to api
 
 async function loginToServer (store, login) {
   console.log('Logging in to server')
-  let res = await api('login', { username: login.username, password: login.password })
+  let res = await api('login',
+    { username: login.username, password: login.password })
   if (res === null) return null
   return { username: login.username, token: res.token, admin: res.admin }
 }
@@ -142,6 +93,28 @@ async function getUsersFromServer (store) {
   console.log('Getting users from server')
   let users = api('allUsers')
   return users
+}
+
+async function addUserToServer (store, user) {
+  console.log(`Adding user ${user.username} from server`)
+  return api('addUser', user)
+}
+
+async function deleteUserFromServer (store, userToDelete) {
+  console.log(`Deleting user ${userToDelete.username} from server`)
+  return api('deleteUser', userToDelete.username)
+}
+
+async function changePasswordToServer (store, value) {
+  console.log(`Changing password to server`)
+  return api('changePassword',
+    { oldPass: value.oldpass, newPass: value.password })
+}
+
+async function changeUserTypeToServer (store, value) {
+  console.log(`Changing user type for user ${value.user.username} from server`)
+  return api('changeUserType',
+    { username: value.user.username, admin: value.admin })
 }
 
 export default {

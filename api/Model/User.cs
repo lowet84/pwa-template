@@ -20,5 +20,12 @@ namespace api.Model
             Admin = admin;
             PasswordHash = LoginUtil.CreatePasswordHash(password);
         }
+
+        public User(bool admin, string username, string passwordHash)
+        {
+            Username = username;
+            Admin = admin;
+            PasswordHash = passwordHash;
+        }
     }
 }
