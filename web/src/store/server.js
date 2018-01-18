@@ -50,11 +50,6 @@ async function saveProgressToServer (store, book) {
   localStorage.setItem('books', JSON.stringify(store.state.books))
 }
 
-async function searchCoversFromServer (store, searchString) {
-  console.log('Searching for covers from server')
-  return dummy.getSearchResults()
-}
-
 async function importBookToServer (store, value) {
   console.log(`Importing book to server`)
   let json = localStorage.getItem('imports')
@@ -80,6 +75,11 @@ async function importBookToServer (store, value) {
 }
 
 // Moved to api
+
+async function searchCoversFromServer (store, searchString) {
+  console.log('Searching for covers from server')
+  return api('searchCovers', searchString)
+}
 
 async function loginToServer (store, login) {
   console.log('Logging in to server')

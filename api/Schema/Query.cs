@@ -38,5 +38,12 @@ namespace api.Schema
             context.ValidateUser(true);
             return context.GetAll<User>();
         }
+
+        public CoverResult[] SearchCovers(UserContext context, string searchString)
+        {
+            context.ValidateUser(true);
+            var ret =  BigBookSearchUtil.SearchForCovers(searchString);
+            return ret;
+        }
     }
 }
