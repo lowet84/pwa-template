@@ -47,7 +47,7 @@ namespace api
             return ret;
         }
 
-        private static bool IsAudioFile(string path)
+        public static bool IsAudioFile(string path)
         {
             new FileExtensionContentTypeProvider().TryGetContentType(path, out var contentType);
             return contentType?.StartsWith("audio") ?? false;

@@ -38,7 +38,7 @@ function getBook (state) {
 
 function getImport (state) {
   return function (id) {
-    return state.imports.find(d => d.id === Number(id))
+    return state.imports.find(d => d.id === id)
   }
 }
 

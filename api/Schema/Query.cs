@@ -1,13 +1,10 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using api.Model;
 using api.Schema.Results;
 using api.Utils;
 using GraphQlRethinkDbLibrary;
-using GraphQlRethinkDbLibrary.Schema.Output;
 using GraphQL.Conventions;
 using GraphQL.Conventions.Relay;
-using Microsoft.AspNetCore.Razor.Language.CodeGeneration;
 
 namespace api.Schema
 {
@@ -43,6 +40,13 @@ namespace api.Schema
         {
             context.ValidateUser(true);
             var ret =  BigBookSearchUtil.SearchForCovers(searchString);
+            return ret;
+        }
+
+        public Import[] Imports(UserContext context)
+        {
+            //var user = context.ValidateUser();
+            var ret = context.GetAll<Import>();
             return ret;
         }
     }
