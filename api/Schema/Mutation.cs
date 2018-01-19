@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.IO;
+using System.Linq;
 using api.Model;
 using api.Utils;
 using GraphQlRethinkDbLibrary;
@@ -58,6 +60,21 @@ namespace api.Schema
             var newUser = new User(admin, user.Username, user.PasswordHash);
             UserContext.UpdateDefault(newUser, user.Id);
             return true;
+        }
+
+        [Description("Import a book")]
+        public Id? ImportBook(UserContext context, Id importId, string cover, string link)
+        {
+            context.ValidateUser(true);
+            var import = UserContext.GetShallow<Import>(importId);
+            if (import == null) return null;
+            var (title, author) = BigBookSearchUtil.SearchAmazon(link);
+            var files = Directory.GetFiles(Path.Combine(AudioFileUtil.DataPath, import.Path)).Where(ImportRunner.IsAudioFile);
+            var length = files.Sum(d => AudioFileUtil.GetLength(d));
+            var book = new Book(title, author, import.Path, cover, length);
+            UserContext.AddDefault(book);
+            UserContext.Remove<Import>(importId);
+            return book.Id;
         }
     }
 }

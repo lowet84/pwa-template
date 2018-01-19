@@ -55,7 +55,7 @@ export default {
     ...mapActions(['searchCoversFromServer', 'importBookToServer', 'updateFromServer']),
     async select (cover) {
       var res = await this.importBookToServer({ id: this.importItem.id, cover: cover })
-      if (res) {
+      if (res !== null) {
         await this.updateFromServer()
         this.$router.go(this.route.params.id !== 'quick'
           ? -2

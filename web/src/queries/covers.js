@@ -6,6 +6,7 @@ function searchCovers (search) {
       {
         cover
         id
+        link
       }
     }`
 }

@@ -1,14 +1,12 @@
-﻿
-
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Timers;
 using api.Model;
+using api.Utils;
 using GraphQlRethinkDbLibrary;
 using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.Azure.KeyVault.Models;
+using SPath = System.IO.Path;
 
 namespace api
 {
@@ -24,11 +22,11 @@ namespace api
 
         private static void Trigger(object sender, ElapsedEventArgs e)
         {
-            var path = Environment.GetEnvironmentVariable("DATAPATH") ?? @"C:\temp\books";
+            var path = AudioFileUtil.DataPath;
             var imports = UserContext.GetAllShallow<Import>();
             var books = UserContext.GetAllShallow<Book>();
             var paths = FindAudioFolders(path);
-            var newImportPaths = paths.Where(p => books.All(book => book.Path != p) && imports.All(book => book.Path != p)).ToList();
+            var newImportPaths = paths.Where(p => books.All(book => book.Path != SPath.GetFileName(p)) && imports.All(book => book.Path != SPath.GetFileName(p))).ToList();
             newImportPaths.ForEach(d=>UserContext.AddDefault(new Import(d)));
         }
 

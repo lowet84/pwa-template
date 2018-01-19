@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
+using api.Model;
 using api.Schema.Results;
 using HtmlAgilityPack;
 
@@ -31,6 +33,21 @@ namespace api.Utils
                     .Select(d => new CoverResult { Cover = images[d], Link = links[d], Id = d }).ToArray();
 
                 return result;
+            }
+        }
+
+        public static (string, string) SearchAmazon(string link)
+        {
+            using (var client = new HttpClient { Timeout = TimeSpan.FromSeconds(10) })
+            {
+                var html = client
+                    .GetStringAsync(link)
+                    .Result;
+                var doc = new HtmlDocument();
+                doc.LoadHtml(html);
+                var title = doc.GetElementbyId("productTitle").InnerText;
+                var author = doc.DocumentNode.SelectNodes("//*[contains(@class,'contributorNameID')]").FirstOrDefault()?.InnerText ?? string.Empty;
+                return (title, author);
             }
         }
     }

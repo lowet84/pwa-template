@@ -10,16 +10,14 @@ namespace api.Model
     {
         public string Title { get; }
         public string Author { get; }
-        public Audio Audio { get; }
         public string Path { get; }
         public string Cover { get; }
-        public int Length { get; }
+        public double Length { get; }
 
-        public Book(string title, string author, Audio audio, string path, string cover, int length)
+        public Book(string title, string author, string path, string cover, double length)
         {
             Title = title;
             Author = author;
-            Audio = audio;
             Path = path;
             Cover = cover;
             Length = length;
