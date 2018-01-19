@@ -11,10 +11,19 @@ namespace api.Handlers
 {
     public class AudioHandler : DefaultAudioHandler
     {
+        public static readonly Dictionary<string, Audio> AudioCache = new Dictionary<string, Audio>();
+
         public override IDefaultAudio GetAudio(string key)
         {
-            //return UserContext.GetShallow<Audio>(new Id(key));
-            return new Audio();
+            var bookKey = key; // TODO check user token in key
+            if (!AudioCache.ContainsKey(bookKey))
+            {
+                var book = UserContext.GetShallow<Book>(new Id(bookKey));
+                var audio = new Audio(book);
+                AudioCache.Add(bookKey, audio);
+                return AudioCache[bookKey];
+            }
+            return AudioCache[bookKey];
         }
 
         public override byte[] GetData(string key, int part)

@@ -33,6 +33,10 @@ module.exports = {
       '/api': {
         target: 'http://localhost:7000',
         changeOrigin: true
+      },
+      '/audio': {
+        target: 'http://localhost:7000',
+        changeOrigin: true
       }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
