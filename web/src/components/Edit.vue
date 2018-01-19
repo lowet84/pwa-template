@@ -45,7 +45,8 @@ export default {
   data: () => ({
     author: '',
     title: '',
-    timer: null
+    timer: null,
+    metadata: undefined
   }),
   methods: {
     back () {
@@ -60,6 +61,9 @@ export default {
         clearTimeout(this.timer)
       }
       this.timer = setTimeout(() => this.saveBookToServer(this.book), 2000)
+    },
+    async getMetadata () {
+      this.metadata = await this.getMetadataFromServer(this.book.id)
     }
   },
   computed: {
@@ -68,8 +72,16 @@ export default {
     book: function () {
       return this.getBook(this.route.params.id)
     },
-    meta1 () { return `${this.book.metadata.author}/${this.book.metadata.title}/${this.book.metadata.album}` },
-    meta2 () { return `${this.book.metadata.path}/${this.book.metadata.filename}` }
+    meta1 () {
+      return this.metadata !== undefined
+        ? `${this.metadata.author}/${this.metadata.title}/${this.metadata.album}`
+        : ''
+    },
+    meta2 () {
+      return this.metadata !== undefined
+        ? `${this.metadata.path}/${this.metadata.filename}`
+        : ''
+    }
   },
   watch: {
     author (newval) {
@@ -90,7 +102,7 @@ export default {
     if (book === undefined) {
       this.$router.push('/')
     }
-    this.getMetadataFromServer(this.book.id)
+    this.getMetadata()
     this.author = this.book.author
     this.title = this.book.title
   }

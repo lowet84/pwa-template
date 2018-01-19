@@ -29,7 +29,7 @@ function latestBook (state) {
 
 function getBook (state) {
   return function (id) {
-    let book = state.books.find(d => d.id === Number(id))
+    let book = state.books.find(d => d.id === id)
     if (book === undefined) return book
     book.progressPercent = Math.floor((book.progress / book.length) * 100)
     return book

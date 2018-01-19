@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using api.Model;
 using api.Schema.Results;
 using api.Utils;
@@ -39,14 +40,30 @@ namespace api.Schema
         public CoverResult[] SearchCovers(UserContext context, string searchString)
         {
             context.ValidateUser(true);
-            var ret =  BigBookSearchUtil.SearchForCovers(searchString);
+            var ret = BigBookSearchUtil.SearchForCovers(searchString);
             return ret;
         }
 
         public Import[] Imports(UserContext context)
         {
-            //var user = context.ValidateUser();
+            context.ValidateUser();
             var ret = context.GetAll<Import>();
+            return ret;
+        }
+
+        public BookResult[] Books(UserContext context)
+        {
+            var user = context.ValidateUser();
+            var books = UserContext.GetAllShallow<Book>();
+            var ret = books.Select(d => new BookResult(d)).ToArray();
+            return ret;
+        }
+
+        public Import Metadata(UserContext context, Id id)
+        {
+            context.ValidateUser(true);
+            var book = UserContext.GetShallow<Book>(id);
+            var ret = new Import(Path.Combine(AudioFileUtil.DataPath,book.Path));
             return ret;
         }
     }

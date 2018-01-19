@@ -9,7 +9,7 @@
           <v-list-tile-title v-html="book.title"></v-list-tile-title>
           <v-list-tile-sub-title v-html="subtitle(book)"></v-list-tile-sub-title>
         </v-list-tile-content>
-        <v-btn flat icon @click="edit(book.id)"> 
+        <v-btn flat icon @click="edit(book.id)" v-if="isAdmin"> 
           <v-icon>edit</v-icon>
         </v-btn>
       </v-list-tile>
@@ -23,7 +23,7 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'browse',
   computed: {
-    ...mapGetters(['allBooks'])
+    ...mapGetters(['allBooks', 'isAdmin'])
   },
   methods: {
     subtitle (book) {
