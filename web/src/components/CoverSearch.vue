@@ -53,10 +53,11 @@ export default {
       this.$router.go(-1)
     },
     ...mapActions(['searchCoversFromServer', 'saveBookToServer']),
-    select (cover) {
+    async select (cover) {
       this.book.cover = cover.cover
-      this.saveBookToServer(this.book)
-      this.$router.go(-1)
+      if (await this.saveBookToServer(this.book)) {
+        this.$router.go(-1)
+      }
     }
   },
   computed: {

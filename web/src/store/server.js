@@ -2,7 +2,7 @@ import api from '../api'
 
 async function saveBookToServer (store, book) {
   console.log('Saving book to server')
-  localStorage.setItem('books', JSON.stringify(store.state.books))
+  return api('saveBook', book)
 }
 
 async function saveProgressToServer (store, book) {

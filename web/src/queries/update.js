@@ -43,4 +43,15 @@ function metadata (bookId) {
     }`
 }
 
-export default { imports, books, metadata }
+function saveBook (args) {
+  return `
+  mutation{
+    saveBook(
+      id:"${args.id}" 
+      title:"${args.title}" 
+      author:"${args.author}" 
+      cover:"${args.cover}")
+    }`
+}
+
+export default { imports, books, metadata, saveBook }

@@ -76,5 +76,15 @@ namespace api.Schema
             UserContext.Remove<Import>(importId);
             return book.Id;
         }
+
+        [Description("Save changes to a book")]
+        public bool SaveBook(UserContext context, Id id, string title, string author, string cover)
+        {
+            context.ValidateUser(true);
+            var book = UserContext.GetShallow<Book>(id);
+            var newBook = new Book(title, author, book.Path, cover, book.Length);
+            UserContext.UpdateDefault(newBook, book.Id);
+            return true;
+        }
     }
 }
