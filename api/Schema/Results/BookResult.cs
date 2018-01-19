@@ -17,22 +17,24 @@ namespace api.Schema.Results
         public DateTime LastPlayed { get; set; }
         public double Length { get; set; }
         public double Progress { get; set; }
+        public Id ProgressId { get; set; }
 
         public BookResult(){}
 
-        public BookResult(Book book)
+        public BookResult(Progress progress)
         {
-            Title = book.Title;
-            Author = book.Author;
-            Id = book.Id;
+            Title = progress.Book.Title;
+            Author = progress.Book.Author;
+            Id = progress.Book.Id;
             //Source = $"/audio/{book.Id}";
-            Cover = book.Cover;
+            Cover = progress.Book.Cover;
+            ProgressId = progress.Id;
+            LastPlayed = progress.LastPlayed;
+            Progress = progress.Value;
 
             // TODO, get real values
             Source = "/static/audio/test.mp3";
-            LastPlayed = DateTime.Now;
             Length = 4201;
-            Progress = 0;
         }
     }
 }

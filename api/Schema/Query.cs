@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using api.Model;
 using api.Schema.Results;
@@ -55,7 +56,17 @@ namespace api.Schema
         {
             var user = context.ValidateUser();
             var books = UserContext.GetAllShallow<Book>();
-            var ret = books.Select(d => new BookResult(d)).ToArray();
+            var searchQl = "query{dummy{user{id} book{id author title cover length} value lastPlayed id}}";
+            var progresses =
+                new UserContext(searchQl).Search<Progress>(expr => expr.Filter(item => item.G("User") == user.Id.ToString())).ToList();
+            foreach (var book in books)
+            {
+                if (progresses.Any(d => d.Book.Id == book.Id)) continue;
+                var progress = new Progress(book, user, 0, DateTime.Parse("1970-01-01"));
+                UserContext.AddDefault(progress);
+                progresses.Add(progress);
+            }
+            var ret = progresses.Select(d => new BookResult(d)).ToArray();
             return ret;
         }
 

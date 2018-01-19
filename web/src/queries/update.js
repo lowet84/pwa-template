@@ -23,7 +23,8 @@ function books () {
       length 
       progress 
       source 
-      title
+      title 
+      progressId
     }
   }`
 }
@@ -54,4 +55,13 @@ function saveBook (args) {
     }`
 }
 
-export default { imports, books, metadata, saveBook }
+function saveProgress (args) {
+  return `
+  mutation{
+    saveProgress(
+      id:"${args.id}" 
+      progress:${args.progress})
+    }`
+}
+
+export default { imports, books, metadata, saveBook, saveProgress }

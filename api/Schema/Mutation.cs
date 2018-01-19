@@ -86,5 +86,17 @@ namespace api.Schema
             UserContext.UpdateDefault(newBook, book.Id);
             return true;
         }
+
+        [Description("Save progress")]
+        public bool SaveProgress(UserContext context, Id id, int progress)
+        {
+            var progressValue = (double) progress / 1000;
+            var user = context.ValidateUser();
+            var oldProgress = UserContext.GetShallow<Progress>(id);
+            if (oldProgress.User.Id != user.Id) return false;
+            var newProgress = new Progress(oldProgress.Book, oldProgress.User, progressValue, DateTime.Now);
+            UserContext.UpdateDefault(newProgress, oldProgress.Id);
+            return true;
+        }
     }
 }

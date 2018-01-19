@@ -1,16 +1,15 @@
 import api from '../api'
 
+async function saveProgressToServer (store, book) {
+  console.log('Saving progress to server')
+  let progress = Math.floor(book.progress * 1000)
+  return api('saveProgress', { id: book.progressId, progress: progress })
+}
+
 async function saveBookToServer (store, book) {
   console.log('Saving book to server')
   return api('saveBook', book)
 }
-
-async function saveProgressToServer (store, book) {
-  console.log('Saving progress to server')
-  localStorage.setItem('books', JSON.stringify(store.state.books))
-}
-
-// Moved to api
 
 async function getMetadataFromServer (store, id) {
   let book = store.getters.getBook(id)
