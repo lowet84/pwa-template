@@ -48,8 +48,7 @@ export default {
     },
     errors (newval) {
       if (this.errors.length > 0 && !this.toast) {
-        this.error = this.errors[0].message
-        console.log(this.errors)
+        this.error = this.errors[0]
         this.toast = true
       }
     }
