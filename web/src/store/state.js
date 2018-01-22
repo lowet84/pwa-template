@@ -7,5 +7,6 @@ let sound = {
 let sortby = 0
 let currentUser = null
 let currentPage = 'Home'
+let errors = []
 
-export default { books, sound, sortby, currentUser, imports, currentPage }
+export default { books, sound, sortby, currentUser, imports, currentPage, errors }

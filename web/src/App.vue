@@ -1,19 +1,34 @@
 <template>
-  <router-view>
-    <router-view name="inner"></router-view>
-    <router-view name="button" slot="button"></router-view>
-  </router-view>
+  <div>
+    <router-view>
+      <router-view name="inner"></router-view>
+      <router-view name="button" slot="button"></router-view>
+    </router-view>
+    <v-snackbar
+      timeout=5000
+      bottom
+      multi-line
+      vertical
+      v-model="toast">
+      {{ error.message }}
+    </v-snackbar>
+  </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 export default {
   name: 'app',
+  data: () => ({
+    error: null,
+    toast: false
+  }),
   created () {
     this.init()
   },
   computed: {
-    ...mapGetters(['loggedIn'])
+    ...mapGetters(['loggedIn']),
+    ...mapState(['errors'])
   },
   methods: {
     ...mapActions(['updateFromServer', 'loadUser']),
@@ -29,6 +44,13 @@ export default {
     $route (newval) {
       if (!this.loggedIn) {
         this.$router.push('/login')
+      }
+    },
+    errors (newval) {
+      if (this.errors.length > 0 && !this.toast) {
+        this.error = this.errors[0]
+        console.log(this.errors)
+        this.toast = true
       }
     }
   }

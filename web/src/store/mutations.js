@@ -10,4 +10,8 @@ function setCurrentPage (state, value) {
   state.currentPage = value
 }
 
-export default { setApplicationTitle, setSorting, setCurrentPage }
+function addError (state, value) {
+  state.errors.push(value)
+}
+
+export default { setApplicationTitle, setSorting, setCurrentPage, addError }
