@@ -8,6 +8,7 @@ function imports () {
       id 
       path 
       title
+      shortPath
     }
   }`
 }

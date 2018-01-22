@@ -26,7 +26,7 @@ namespace api
             var imports = UserContext.GetAllShallow<Import>();
             var books = UserContext.GetAllShallow<Book>();
             var paths = FindAudioFolders(path);
-            var newImportPaths = paths.Where(p => books.All(book => book.Path != SPath.GetFileName(p)) && imports.All(book => book.Path != SPath.GetFileName(p))).ToList();
+            var newImportPaths = paths.Where(p => books.All(book => book.Path != p) && imports.All(book => book.Path != p)).ToList();
             newImportPaths.ForEach(d=>UserContext.AddDefault(new Import(d)));
         }
 
