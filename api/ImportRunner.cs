@@ -45,10 +45,14 @@ namespace api
             return ret;
         }
 
+        private static readonly string[] BannedMimetypes = {
+            "audio/x-mpegurl"
+        };
+
         public static bool IsAudioFile(string path)
         {
             new FileExtensionContentTypeProvider().TryGetContentType(path, out var contentType);
-            return contentType?.StartsWith("audio") ?? false;
+            return (contentType?.StartsWith("audio") ?? false) && !BannedMimetypes.Contains(contentType) ;
         }
     }
 }
