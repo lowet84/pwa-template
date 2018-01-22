@@ -48,10 +48,19 @@ namespace api.Utils
                 doc.LoadHtml(html);
                 var title = doc.GetElementbyId("productTitle").InnerText;
                 var authorElement = doc.DocumentNode.SelectNodes("//*[contains(@class,'author')]").FirstOrDefault();
-                var author = authorElement?.InnerText ?? string.Empty;
-                author = author.Replace("(Author)", string.Empty).Trim();
+                var author = FindAuthorName(authorElement);
                 return (title, author);
             }
+        }
+
+        private static string FindAuthorName(HtmlNode node)
+        {
+            if (node.HasAttributes && node.Attributes.Any(d => d.Name == "data-asin"))
+            {
+                return node.InnerText;
+            }
+            return node.ChildNodes.Select(FindAuthorName)
+                .FirstOrDefault(temp => temp != null);
         }
     }
 }
