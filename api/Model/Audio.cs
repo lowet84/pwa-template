@@ -11,7 +11,7 @@ namespace api.Model
         public Audio(Book book)
         {
             Key = book.Id.ToString();
-            var files = Directory.GetFiles(Path.Combine(AudioFileUtil.DataPath, book.Path))
+            var files = Directory.GetFiles(book.Path)
                 .Where(ImportRunner.IsAudioFile).ToList();
             var sortedFiles = files.Select(d => new { value = d, sorter = GetSortableString(d) })
                 .OrderBy(d=>d.sorter)
@@ -34,7 +34,7 @@ namespace api.Model
 
         private static string GetSortableString(string str)
         {
-            var split = str.Split(new[] { ' ', '-', '_', '.' });
+            var split = str.Split(' ', '-', '_', '.');
             for (var index = 0; index < split.Length; index++)
             {
                 var item = split[index];

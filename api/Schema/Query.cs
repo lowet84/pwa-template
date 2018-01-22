@@ -74,7 +74,7 @@ namespace api.Schema
         {
             context.ValidateUser(true);
             var book = UserContext.GetShallow<Book>(id);
-            var ret = new Import(Path.Combine(AudioFileUtil.DataPath,book.Path));
+            var ret = new Import(book.Path);
             return ret;
         }
     }
