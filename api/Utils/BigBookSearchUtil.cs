@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using api.Model;
 using api.Schema.Results;
@@ -46,7 +47,9 @@ namespace api.Utils
                 var doc = new HtmlDocument();
                 doc.LoadHtml(html);
                 var title = doc.GetElementbyId("productTitle").InnerText;
-                var author = doc.DocumentNode.SelectNodes("//*[contains(@class,'contributorNameID')]").FirstOrDefault()?.InnerText ?? string.Empty;
+                var authorElement = doc.DocumentNode.SelectNodes("//*[contains(@class,'author')]").FirstOrDefault();
+                var author = authorElement?.InnerText ?? string.Empty;
+                author = author.Replace("(Author)", string.Empty).Trim();
                 return (title, author);
             }
         }

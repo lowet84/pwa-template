@@ -36,8 +36,9 @@ export default {
       this.loadUser()
       if (!this.loggedIn) {
         this.$router.push('/login')
+      } else {
+        this.updateFromServer()
       }
-      this.updateFromServer()
     }
   },
   watch: {

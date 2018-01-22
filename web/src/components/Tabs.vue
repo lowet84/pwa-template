@@ -3,7 +3,7 @@
 
     <v-toolbar color="primary" fixed app>
       <v-spacer />
-      <v-toolbar-title class="title">{{currentPage}}</v-toolbar-title>
+      <v-toolbar-title class="title" v-html="currentPage"></v-toolbar-title>
       <v-spacer />
       <div class="buttons">
         <BrowseButton v-if="currentPage==='Browse'"/>

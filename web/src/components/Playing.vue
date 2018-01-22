@@ -22,8 +22,8 @@
             </v-progress-linear>
           </div>
           <div class="text-area">
-            <h1 class="white--text">{{book.title}}</h1>
-            <h4 class="white--text">{{book.author}}</h4>
+            <h1 class="white--text" v-html="book.title"></h1>
+            <h4 class="white--text" v-html="book.author"></h4>
           </div>
           <div class="control">
             <v-btn flat icon class="button" @click="jumpClick(-60)">
