@@ -11,7 +11,7 @@ function setCurrentPage (state, value) {
 }
 
 function addError (state, value) {
-  state.errors.push(value)
+  state.errors.push(`Error: ${value.error} \nArgs: ${value.args}`)
 }
 
 export default { setApplicationTitle, setSorting, setCurrentPage, addError }

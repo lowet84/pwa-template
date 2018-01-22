@@ -22,7 +22,7 @@
                   <v-flex
                     xs4
                     v-for="cover in covers"
-                    :key="cover.id">
+                    :key="cover.id"                    >
                     <v-card flat tile>
                       <v-card-media @click="select(cover)"
                         :src="cover.cover"
@@ -46,7 +46,8 @@ import { mapGetters, mapState, mapActions } from 'vuex'
 export default {
   name: 'search',
   data: () => ({
-    covers: []
+    covers: [],
+    enabled: true
   }),
   methods: {
     back () {
@@ -54,6 +55,8 @@ export default {
     },
     ...mapActions(['searchCoversFromServer', 'importBookToServer', 'updateFromServer']),
     async select (cover) {
+      if (!this.enabled) return
+      this.enabled = false
       var res = await this.importBookToServer({ id: this.importItem.id, cover: cover })
       if (res !== null) {
         await this.updateFromServer()
@@ -61,6 +64,7 @@ export default {
           ? -2
           : -1)
       }
+      this.enabled = true
     }
   },
   computed: {
