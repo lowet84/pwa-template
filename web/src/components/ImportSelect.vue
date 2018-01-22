@@ -37,10 +37,10 @@
           </v-list-tile>
           <v-list-tile>
             <v-list-tile-content>
-              <v-list-tile-title>{{importItem.path}}</v-list-tile-title>
+              <v-list-tile-title>{{importItem.shortPath}}</v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-btn icon @click="$router.push(`/import/${id}/${importItem.path}`)">
+              <v-btn icon @click="$router.push(`/import/${id}/${importItem.shortPath}`)">
                 <v-icon>search</v-icon>
               </v-btn>
             </v-list-tile-action>
