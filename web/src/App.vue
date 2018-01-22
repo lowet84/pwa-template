@@ -5,12 +5,12 @@
       <router-view name="button" slot="button"></router-view>
     </router-view>
     <v-snackbar
-      timeout=5000
+      :timeout="5000"
       bottom
       multi-line
-      vertical
+      vertical 
       v-model="toast">
-      {{ error.message }}
+      {{ error }}
     </v-snackbar>
   </div>
 </template>
@@ -48,7 +48,7 @@ export default {
     },
     errors (newval) {
       if (this.errors.length > 0 && !this.toast) {
-        this.error = this.errors[0]
+        this.error = this.errors[0].message
         console.log(this.errors)
         this.toast = true
       }
