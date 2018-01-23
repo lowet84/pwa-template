@@ -21,6 +21,7 @@ FROM microsoft/aspnetcore
 
 WORKDIR /app
 RUN mkdir -p /data
+RUN apt-get update && apt-get install -y ffmpeg
 
 COPY --from=backend /api/out/ .
 
