@@ -26,15 +26,11 @@ namespace api.Schema.Results
             Title = progress.Book.Title;
             Author = progress.Book.Author;
             Id = progress.Book.Id;
-            //Source = $"/audio/{book.Id}";
             Cover = progress.Book.Cover;
             ProgressId = progress.Id;
             LastPlayed = progress.LastPlayed;
             Progress = progress.Value;
-
-            // TODO, get real values
-            Source = "/static/audio/test.mp3";
-            Length = 4201;
+            Length = progress.Value;
         }
     }
 }

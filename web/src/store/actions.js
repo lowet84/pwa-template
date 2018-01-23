@@ -7,7 +7,7 @@ let timer = null
 let play = function (store, value) {
   let book = store.getters.getBook(value)
   store.state.sound.howl = new howler.Howl({
-    src: book.source,
+    src: `${store.state.currentUser.token}_${book.id}`,
     html5: true
   })
 
