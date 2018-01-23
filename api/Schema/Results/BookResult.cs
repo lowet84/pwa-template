@@ -30,7 +30,7 @@ namespace api.Schema.Results
             ProgressId = progress.Id;
             LastPlayed = progress.LastPlayed;
             Progress = progress.Value;
-            Length = progress.Value;
+            Length = progress.Book.Length;
         }
     }
 }

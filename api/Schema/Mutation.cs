@@ -69,8 +69,15 @@ namespace api.Schema
             var import = UserContext.GetShallow<Import>(importId);
             if (import == null) return null;
             var (title, author) = BigBookSearchUtil.SearchAmazon(link);
-            var files = Directory.GetFiles(Path.Combine(AudioFileUtil.DataPath, import.Path)).Where(ImportRunner.IsAudioFile);
-            var length = files.Sum(d => AudioFileUtil.GetLength(d));
+            var files = Directory.GetFiles(import.Path)
+                .Where(ImportRunner.IsAudioFile)
+                .ToList();
+            double length;
+            length = AudioFileUtil.GetLength(
+                files.Count == 1 ?
+                files.First() :
+                AudioFileUtil.JoinFilesWithFfmpeg(import.Path));
+
             var book = new Book(title, author, import.Path, cover, length);
             UserContext.AddDefault(book);
             UserContext.Remove<Import>(importId);
@@ -90,7 +97,7 @@ namespace api.Schema
         [Description("Save progress")]
         public bool SaveProgress(UserContext context, Id id, int progress)
         {
-            var progressValue = (double) progress / 1000;
+            var progressValue = (double)progress / 1000;
             var user = context.ValidateUser();
             var oldProgress = UserContext.GetShallow<Progress>(id);
             if (oldProgress.User.Id != user.Id) return false;

@@ -12,10 +12,13 @@ namespace api.Model
         {
             Key = book.Id.ToString();
             var files = Directory.GetFiles(book.Path)
-                .Where(ImportRunner.IsAudioFile).ToList();
-            var sortedFiles = files.Select(d => new { value = d, sorter = GetSortableString(d) })
-                .OrderBy(d=>d.sorter)
+                .Where(ImportRunner.IsAudioFile)
                 .ToList();
+            var file = files.Count == 1 ?
+                    files.First() :
+                    files.FirstOrDefault(d => d.Contains("_joined_"));
+            Length = new FileInfo(file).Length;
+            File = file;
         }
 
         public string Key { get; set; }
@@ -24,27 +27,8 @@ namespace api.Model
 
         public int BlockSize => 10000;
 
-        public long Length => 134000000;
+        public long Length { get; }
 
-        public class AudioFile
-        {
-            public string FilePath { get; set; }
-            public long Length { get; set; }
-        }
-
-        private static string GetSortableString(string str)
-        {
-            var split = str.Split(' ', '-', '_', '.');
-            for (var index = 0; index < split.Length; index++)
-            {
-                var item = split[index];
-                if (int.TryParse(item, out var number))
-                {
-                    split[index] = number.ToString("D6");
-                }
-            }
-            var ret = string.Join(string.Empty, split);
-            return ret;
-        }
+        public string File { get; }
     }
 }
